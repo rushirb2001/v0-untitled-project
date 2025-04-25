@@ -1,0 +1,1359 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  transition: color 0.5s, border-color 0.5s;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+/* Custom colors for the blue theme */
+.text-royal-blue {
+  color: #002366;
+}
+
+.text-columbia-blue {
+  color: #b9d9eb;
+}
+
+.text-light-blue {
+  color: #c6e2e9;
+}
+
+.text-delft-blue {
+  color: #1f305e;
+}
+
+.text-rich-black {
+  color: #060f20;
+}
+
+.border-royal-blue {
+  border-color: #002366;
+}
+
+.border-columbia-blue {
+  border-color: #b9d9eb;
+}
+
+.border-light-blue {
+  border-color: #c6e2e9;
+}
+
+.border-delft-blue {
+  border-color: #1f305e;
+}
+
+.bg-royal-blue {
+  background-color: #002366;
+}
+
+.bg-columbia-blue {
+  background-color: #b9d9eb;
+}
+
+.bg-light-blue {
+  background-color: #c6e2e9;
+}
+
+.bg-delft-blue {
+  background-color: #1f305e;
+}
+
+.bg-rich-black {
+  background-color: #060f20;
+}
+
+/* Update the energy flow animation to ensure it works consistently */
+/* Find the existing energyFlow keyframes and replace with: */
+
+@keyframes energyFlow {
+  0% {
+    stroke-dashoffset: 16;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.energy-flow {
+  animation: energyFlow 1s linear infinite;
+  will-change: stroke-dashoffset;
+  stroke-linecap: butt; /* Changed from round to butt for precise connections */
+}
+
+/* Add this new style for the base connection lines: */
+svg line {
+  stroke-linecap: butt; /* Ensure all lines have precise endpoints */
+}
+
+/* Enhanced skill node animations */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px 0 rgba(0, 35, 102, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px 2px rgba(0, 35, 102, 0.5);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Skill container zoom effect */
+@keyframes zoom-border {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.6;
+  }
+}
+
+.zoom-border {
+  animation: zoom-border 2s ease-in-out infinite;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-funnel;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+}
+
+/* Add scroll margin to all sections */
+section[id] {
+  scroll-margin-top: 70px;
+}
+
+.theme-fading *:not(.theme-overlay) {
+  transition-property: color, background, background-color, border-color, box-shadow !important;
+  transition-duration: 0ms !important;
+  transition-delay: 0ms !important;
+}
+
+/* Banner image filters */
+.banner-image {
+  filter: blur(1px);
+}
+
+.dark .banner-image {
+  filter: blur(1px) brightness(0.5) hue-rotate(215deg);
+}
+
+/* Custom styles for card flipping */
+.education-timeline {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 40px 0;
+  min-height: 60vh;
+}
+
+.education-timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  bottom: 60px;
+  width: 4px;
+  background: linear-gradient(to bottom, #002366 0%, #b9d9eb 100%);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+.education-event {
+  position: relative;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0 32px 60px 0;
+  z-index: 2;
+  min-height: 220px;
+  opacity: 0;
+}
+
+.education-event.right {
+  left: 50%;
+  align-items: flex-start;
+  padding: 0 0 60px 32px;
+}
+
+.education-dot {
+  position: absolute;
+  right: -12px;
+  top: 40px;
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border: 4px solid #002366; /* Updated to Royal blue */
+  border-radius: 50%;
+  z-index: 5;
+}
+
+.education-event.right .education-dot {
+  left: -12px;
+  right: auto;
+}
+
+.education-date {
+  position: absolute;
+  top: 48px;
+  right: -84px;
+  width: 70px;
+  text-align: center;
+  color: #002366; /* Updated to Royal blue */
+  font-weight: bold;
+  background: #fff;
+  border-radius: 8px;
+  z-index: 5;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  padding: 2px 0;
+}
+
+.education-event.right .education-date {
+  left: -84px;
+  right: auto;
+}
+
+/* Flip card effect (unchanged) */
+.flip-card {
+  perspective: 1200px;
+  height: 220px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.44, 1.14, 0.6, 1.01);
+  transform-style: preserve-3d;
+}
+
+.group:hover .flip-card-inner,
+.group:focus-within .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  align-items: center;
+  justify-content: center;
+}
+
+.bubble {
+  box-shadow: 0 2px 10px 0 rgba(0, 35, 102, 0.07); /* Updated to Royal blue */
+}
+
+/* Mobile Education Timeline Styles */
+.mobile-education-timeline {
+  position: relative;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+/* Ensure timeline is behind cards in dark mode */
+.dark .absolute.h-full.w-0\.5.bg-gradient-to-b {
+  z-index: 1;
+}
+
+/* Ensure cards are above timeline */
+.dark .bg-navy-blue\/30.rounded-lg {
+  position: relative;
+  z-index: 5;
+}
+
+/* Connector line styles */
+.education-connector {
+  position: absolute;
+  width: 2px;
+  background: linear-gradient(to bottom, #002366, #b9d9eb); /* Updated to Royal blue and Columbia blue */
+  z-index: 2;
+}
+
+.dark .education-connector {
+  background: linear-gradient(to #002366, #b9d9eb); /* Updated to Royal blue and Columbia blue */
+  z-index: 2;
+}
+
+.dark .education-connector {
+  background: linear-gradient(to bottom, #002366, #b9d9eb); /* Updated to Royal blue and Columbia blue */
+}
+
+/* Add this media query for extra small devices */
+@media (max-width: 360px) {
+  .mobile-education-timeline .pl-8 {
+    padding-left: 6px;
+  }
+
+  .mobile-education-timeline .pl-10 {
+    padding-left: 6px;
+  }
+
+  .mobile-education-timeline .w-8,
+  .mobile-education-timeline .h-8 {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .mobile-education-timeline .text-[10px] {
+    font-size: 8px;
+  }
+}
+
+/* Animation classes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* NEW ENHANCED ANIMATIONS */
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* NEW REVERSE ANIMATIONS */
+@keyframes slide-up-reverse {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+}
+
+@keyframes slide-down-reverse {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+}
+
+@keyframes hop {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-slide-down {
+  animation: slide-down 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-slide-up-reverse {
+  animation: slide-up-reverse 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-slide-down-reverse {
+  animation: slide-down-reverse 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-hop {
+  animation: hop 3s ease-in-out infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.8s ease-in-out forwards;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.8s ease-in-out forwards;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.8s ease-in-out forwards;
+}
+
+/* Scroll animations */
+.animate-on-scroll {
+  opacity: 0;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.fade-in {
+  opacity: 1;
+}
+
+.animate-on-scroll.slide-up {
+  transform: translateY(0);
+}
+
+@keyframes blob-float {
+  0%,
+  100% {
+    transform: translate(0%, 0%);
+    opacity: 0.7;
+    filter: blur(48px);
+  }
+  12.5% {
+    transform: translate(42.43%, 42.43%);
+    opacity: 0.8;
+    filter: blur(50px);
+  }
+  25% {
+    transform: translate(0%, 0%);
+    opacity: 0.85;
+    filter: blur(52px);
+  }
+  37.5% {
+    transform: translate(-42.43%, -42.43%);
+    opacity: 0.8;
+    filter: blur(50px);
+  }
+  50% {
+    transform: translate(0%, 0%);
+    opacity: 0.7;
+    filter: blur(48px);
+  }
+  62.5% {
+    transform: translate(42.43%, -42.43%);
+    opacity: 0.8;
+    filter: blur(50px);
+  }
+  75% {
+    transform: translate(0%, 0%);
+    opacity: 0.85;
+    filter: blur(52px);
+  }
+  87.5% {
+    transform: translate(-42.43%, 42.43%);
+    opacity: 0.8;
+    filter: blur(50px);
+  }
+}
+.animate-blob-float {
+  animation: blob-float 5s ease-in-out infinite;
+}
+
+/* Skill bubble styles */
+.skill-bubble {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1e3a8a;
+  padding: 7px 18px 7px 12px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  box-shadow: 0 4px 20px 0 rgba(0, 35, 102, 0.15); /* Updated to Royal blue */
+  border: 1.5px solid rgba(0, 35, 102, 0.3); /* Updated to Royal blue */
+  transition: box-shadow 0.25s, background 0.2s, color 0.2s, transform 0.2s;
+  z-index: 60;
+  min-width: 82px;
+  min-height: 38px;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.skill-bubble:hover {
+  box-shadow: 0 6px 25px 0 rgba(0, 35, 102, 0.25); /* Updated to Royal blue */
+  transform: translateY(-2px) scale(1.03);
+}
+
+.dark .skill-bubble {
+  background: rgba(6, 15, 32, 0.95); /* Updated to Rich black */
+  color: #f1f5f9;
+  border: 1.5px solid rgba(0, 35, 102, 0.4); /* Updated to Royal blue */
+}
+
+/* Add a subtle pulse animation for the skill nodes */
+@keyframes subtle-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px 0 rgba(0, 35, 102, 0.15); /* Updated to Royal blue */
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px 0 rgba(0, 35, 102, 0.25); /* Updated to Royal blue */
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px 0 rgba(0, 35, 102, 0.15); /* Updated to Royal blue */
+  }
+}
+
+.skill-node {
+  animation: subtle-pulse 3s infinite ease-in-out;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Improve the connection lines */
+.skill-connection {
+  stroke-dasharray: 5, 4;
+  stroke-width: 1.5;
+  transition: opacity 0.3s, stroke-width 0.3s;
+}
+
+.skill-connection.active {
+  stroke-width: 2.5;
+  stroke-dasharray: 6, 3;
+  opacity: 0.8 !important;
+}
+.skill-bubble-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 130px;
+  white-space: nowrap;
+  display: inline-block;
+}
+.dark .skill-bubble {
+  background: #060f20; /* Updated to Rich black */
+  color: #f1f5f9;
+  border: 1.5px solid #002366; /* Updated to Royal blue */
+}
+
+/* Add this to your existing globals.css animations */
+@keyframes pulse-border {
+  0%,
+  100% {
+    border-color: rgba(0, 35, 102, 0.5); /* Updated to Royal blue */
+  }
+  50% {
+    border-color: rgba(0, 35, 102, 1); /* Updated to Royal blue */
+  }
+}
+
+.animate-pulse-border {
+  animation: pulse-border 2s infinite;
+}
+
+/* Modern Experience Timeline Styles */
+.experience-timeline-modern {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.timeline-line-modern {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #060f20 0%, #002366 100%); /* Updated to Rich black and Royal blue */
+  z-index: 1;
+  transform: translateX(-50%);
+}
+
+.timeline-item-modern {
+  position: absolute;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+
+.timeline-item-modern.left {
+  padding-right: 50%;
+  text-align: right;
+}
+
+.timeline-item-modern.right {
+  padding-left: 50%;
+  text-align: left;
+}
+
+.timeline-card-modern {
+  background: white;
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(226, 232, 240, 1);
+  transition: all 0.3s ease;
+  max-width: 90%;
+  position: relative;
+}
+
+.timeline-item-modern.left .timeline-card-modern {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.timeline-item-modern.right .timeline-card-modern {
+  margin-right: auto;
+  margin-left: 20px;
+}
+
+.timeline-item-modern.active .timeline-card-modern {
+  border-color: #002366; /* Updated to Royal blue */
+  box-shadow: 0 6px 16px rgba(0, 35, 102, 0.15); /* Updated to Royal blue */
+  transform: translateY(-3px);
+}
+
+.timeline-dot-modern {
+  position: absolute;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  background: #060f20; /* Updated to Rich black */
+  border: 3px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.3s ease;
+  transform: translateY(-50%);
+  box-shadow: 0 0 0 4px rgba(226, 232, 240, 0.5);
+}
+
+.timeline-item-modern.left .timeline-dot-modern {
+  right: calc(50% - 18px);
+}
+
+.timeline-item-modern.right .timeline-dot-modern {
+  left: calc(50% - 18px);
+}
+
+.timeline-item-modern:hover .timeline-dot-modern {
+  transform: translateY(-50%) scale(1.1);
+  background: #002366; /* Updated to Royal blue */
+}
+
+.timeline-item-modern.active .timeline-dot-modern {
+  background: #002366; /* Updated to Royal blue */
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 0 0 4px rgba(0, 35, 102, 0.3), 0 0 15px rgba(0, 35, 102, 0.5); /* Updated to Royal blue */
+}
+
+.timeline-date-modern {
+  font-size: 0.9rem;
+  color: #002366; /* Updated to Royal blue */
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.timeline-company-modern {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #060f20; /* Updated to Rich black */
+  margin-bottom: 2px;
+}
+
+.timeline-position-modern {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.dark .timeline-card-modern {
+  background: #1f305e; /* Updated to Delft Blue */
+  border-color: #002366; /* Updated to Royal blue */
+}
+
+.dark .timeline-dot-modern {
+  background: #002366; /* Updated to Royal blue */
+  border-color: #1f305e; /* Updated to Delft Blue */
+  box-shadow: 0 0 0 4px rgba(0, 35, 102, 0.5); /* Updated to Royal blue */
+}
+
+.dark .timeline-company-modern {
+  color: white;
+}
+
+.dark .timeline-position-modern {
+  color: #b9d9eb; /* Updated to Columbia blue */
+}
+
+.dark .timeline-date-modern {
+  color: #b9d9eb; /* Updated to Columbia blue */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .experience-timeline-modern {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    min-height: auto;
+  }
+
+  .timeline-line-modern {
+    left: 20px;
+    transform: none;
+  }
+
+  .timeline-item-modern {
+    position: relative;
+    top: auto !important;
+    margin-bottom: 20px;
+  }
+
+  .timeline-item-modern.left,
+  .timeline-item-modern.right {
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 0;
+    text-align: left;
+  }
+
+  .timeline-dot-modern,
+  .timeline-item-modern.left .timeline-dot-modern,
+  .timeline-item-modern.right .timeline-dot-modern {
+    left: 2px;
+    right: auto;
+  }
+
+  .timeline-card-modern,
+  .timeline-item-modern.left .timeline-card-modern,
+  .timeline-item-modern.right .timeline-card-modern {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+  }
+}
+
+/* Experience section improvements */
+.experience-content-container {
+  position: relative;
+  height: calc(100vh - 300px);
+  width: 100%;
+}
+
+.experience-content-item {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.experience-content-item.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Ensure timeline has fixed structure */
+.timeline-item-modern {
+  position: absolute;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 5;
+  transform: none !important; /* Prevent transform changes */
+}
+
+/* Ensure smooth transitions between content panels */
+.experience-content-transition {
+  transition: opacity 0.4s ease-in-out;
+}
+
+/* Add these smooth animation properties to the globals.css file */
+
+/* Smooth blob animation */
+@keyframes subtle-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+    filter: blur(40px);
+  }
+  50% {
+    opacity: 0.7;
+    filter: blur(35px);
+  }
+}
+
+.smooth-blob {
+  animation: subtle-glow 4s ease-in-out infinite;
+  will-change: transform, opacity, filter;
+}
+
+/* Mobile education carousel styles */
+.education-carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.education-carousel-item {
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.education-carousel-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.education-carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 0 4px;
+  background-color: #cbd5e1;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.education-carousel-dot.active {
+  background-color: #002366; /* Updated to Royal blue */
+  transform: scale(1.5);
+}
+
+.education-nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.education-nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.education-nav-button:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.education-nav-prev {
+  left: 10px;
+}
+
+.education-nav-next {
+  right: 10px;
+}
+
+.dark .education-nav-button {
+  background-color: rgba(31, 48, 94, 0.8); /* Updated to Delft Blue */
+}
+
+.dark .education-nav-button:hover {
+  background-color: rgba(31, 48, 94, 0.9); /* Updated to Delft Blue */
+}
+
+.dark .education-carousel-dot {
+  background-color: #1f305e; /* Updated to Delft Blue */
+}
+
+.dark .education-carousel-dot.active {
+  background-color: #b9d9eb; /* Updated to Columbia blue */
+}
+
+/* Wavy timeline styles */
+.wavy-timeline {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 2s ease-in-out forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Add these new styles for the education section */
+
+/* Section entrance animation */
+.section-entered .education-card {
+  animation: card-entrance 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes card-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fix dark mode timeline issues */
+.dark .timeline-svg {
+  z-index: 0; /* Lower z-index in dark mode */
+}
+
+.dark .education-card {
+  background-color: rgba(6, 15, 32, 1); /* Updated to Rich black - Fully opaque in dark mode */
+  border-color: rgba(0, 35, 102, 0.6); /* Updated to Royal blue */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  z-index: 10; /* Higher z-index to stay above timeline */
+}
+
+.dark .education-icon-container {
+  z-index: 20; /* Keep icons above everything */
+}
+
+/* Timeline container in dark mode */
+.dark .timeline-container {
+  z-index: 0;
+}
+
+/* Wavy timeline animation improvements */
+.wavy-timeline {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 2s ease-in-out forwards;
+  filter: drop-shadow(0 0 3px rgba(0, 35, 102, 0.3)); /* Updated to Royal blue */
+}
+
+.section-entered .wavy-timeline {
+  animation: dash 1.5s ease-in-out forwards, glow 3s infinite alternate;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 2px rgba(0, 35, 102, 0.3)); /* Updated to Royal blue */
+  }
+  to {
+    filter: drop-shadow(0 0 5px rgba(0, 35, 102, 0.6)); /* Updated to Royal blue */
+  }
+}
+
+/* Improve mobile education section */
+@media (max-width: 768px) {
+  .education-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .education-card:active {
+    transform: scale(0.98);
+  }
+
+  /* Ensure timeline is behind cards in dark mode */
+  .dark .timeline-svg {
+    opacity: 0.5;
+    z-index: 1;
+  }
+
+  .dark .education-card {
+    z-index: 10;
+  }
+}
+
+/* Enhance the education section scrolling experience */
+#education {
+  scroll-behavior: smooth;
+  transition: background-color 0.5s ease;
+}
+
+/* Add a subtle highlight effect when the section is entered */
+.section-entered#education {
+  background-color: rgba(241, 245, 249, 0.5);
+}
+
+.dark .section-entered#education {
+  background-color: rgba(6, 15, 32, 0.8); /* Updated to Rich black */
+}
+
+/* Enhanced timeline in dark mode */
+.dark .wavy-timeline {
+  stroke: url(#timeline-gradient);
+  stroke-width: 4;
+  filter: drop-shadow(0 0 8px rgba(185, 217, 235, 0.6)); /* Updated to Columbia blue */
+}
+
+/* Journey path animation for experience section */
+.journey-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: journey-dash 3s ease-in-out forwards;
+}
+
+@keyframes journey-dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Experience journey card styles */
+.experience-journey-card {
+  background: rgba(6, 15, 32, 0.8); /* Updated to Rich black */
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 35, 102, 0.2); /* Updated to Royal blue */
+  transition: all 0.3s ease;
+}
+
+.experience-journey-card:hover {
+  border-color: rgba(0, 35, 102, 0.4); /* Updated to Royal blue */
+  box-shadow: 0 0 20px rgba(0, 35, 102, 0.3); /* Updated to Royal blue */
+}
+
+/* Experience section expandable sections */
+.experience-expandable {
+  overflow: hidden;
+  transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+.experience-expandable.expanded {
+  height: auto;
+}
+
+.experience-expandable.collapsed {
+  height: 0;
+  opacity: 0;
+}
+
+/* Experience navigation indicators */
+.experience-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(0, 35, 102, 0.3); /* Updated to Royal blue */
+  transition: all 0.3s ease;
+}
+
+.experience-indicator.active {
+  width: 24px;
+  background-color: rgba(0, 35, 102, 1); /* Updated to Royal blue */
+}
+
+/* Update the experience journey card styles to use solid backgrounds */
+.experience-journey-card {
+  background: #ffffff; /* Solid white for light mode */
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.dark .experience-journey-card {
+  background: #060f20; /* Updated to Rich black for dark mode */
+  border: 1px solid #002366; /* Updated to Royal blue */
+}
+
+.experience-journey-card:hover {
+  border-color: #002366; /* Updated to Royal blue */
+  box-shadow: 0 0 20px rgba(0, 35, 102, 0.3); /* Updated to Royal blue */
+}
+
+/* Remove backdrop-blur and transparency from all experience section elements */
+.experience-section-mobile .bg-white\/10 {
+  background-color: #ffffff;
+}
+
+.dark .experience-section-mobile .bg-white\/10 {
+  background-color: #060f20; /* Updated to Rich black */
+}
+
+.experience-section-mobile .bg-white\/5 {
+  background-color: #f1f5f9;
+}
+
+.dark .experience-section-mobile .bg-white\/5 {
+  background-color: #1f305e; /* Updated to Delft Blue */
+}
+
+/* Update expandable section backgrounds */
+.experience-expandable-section {
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+
+.dark .experience-expandable-section {
+  background-color: #1f305e; /* Updated to Delft Blue */
+  border: 1px solid #002366; /* Updated to Royal blue */
+}
+
+.experience-expandable-section.active {
+  border-color: #002366; /* Updated to Royal blue */
+}
+
+/* Add these animations to your existing globals.css file */
+
+@keyframes pulse-subtle {
+  0%,
+  100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s infinite ease-in-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.animate-ripple {
+  animation: ripple 1s ease-out;
+}
+
+/* Add this to ensure smooth transitions */
+.theme-transition-mobile {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Update the journey path gradient in experience section */
+#journey-gradient stop:nth-child(2) {
+  stop-color: #002366;
+}
+
+/* Update the wavy timeline gradient */
+#timeline-gradient stop {
+  stop-color: #002366;
+}
+#timeline-gradient stop:nth-child(2) {
+  stop-color: #b9d9eb;
+}
+
+/* Update blob colors in contact section */
+.absolute.z-0.w-40.h-40.rounded-full.bg-gradient-to-tr {
+  background: linear-gradient(to tr, #002366, #b9d9eb);
+}
+
+/* Add these styles to improve the mobile skills wheel animation */
+
+/* 1. Add smooth wheel scrolling styles: */
+/* Mobile skills wheel styles */
+.wheel-container {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+}
+
+.wheel-item {
+  transition: transform 0.3s ease, opacity 0.3s ease, scale 0.3s ease;
+  will-change: transform, opacity, scale;
+}
+
+.wheel-item.selected {
+  transform: scale(1.05);
+}
+
+/* Improve mobile touch interactions */
+@media (max-width: 768px) {
+  .skill-wheel-container {
+    touch-action: pan-y;
+    user-select: none;
+  }
+
+  .skill-wheel-item {
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .skill-wheel-highlight {
+    box-shadow: 0 0 0 2px rgba(0, 35, 102, 0.2) inset;
+  }
+}
+
+/* Skill card animations for mobile */
+@keyframes skill-card-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skill-card-animate {
+  animation: skill-card-entrance 0.3s ease forwards;
+}
+
+/* iOS-style wheel optimizations */
+@media (max-width: 768px) {
+  /* Optimize performance for mobile devices */
+  #skills {
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000;
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+
+  /* Ensure smooth animations */
+  .wheel-item {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+  }
+
+  /* Prevent layout shifts */
+  .wheel-container {
+    contain: layout;
+  }
+
+  /* Optimize touch handling */
+  .wheel-container {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+}
