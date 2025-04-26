@@ -307,29 +307,8 @@ export default function SkillsSection() {
       ref={sectionRef}
       className={`min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-[#060F20] relative overflow-hidden py-0 px-4 transition-opacity duration-500 ${
         isInView ? "opacity-100" : "opacity-0"
-      }`}
-      style={{
-        backgroundImage:
-          resolvedTheme === "dark"
-            ? "radial-gradient(circle, rgba(185, 217, 235, 0.15) 2px, transparent 2px)"
-            : "radial-gradient(circle, rgba(0, 35, 102, 0.12) 2px, transparent 2px)",
-        backgroundSize: "20px 20px",
-        backgroundPosition: "0 0",
-      }}
+      } ${resolvedTheme === "dark" ? "dotted-bg-dark" : "dotted-bg-light"}`}
     >
-      {/* Additional dotted background layer for depth */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-70"
-        style={{
-          backgroundImage:
-            resolvedTheme === "dark"
-              ? "radial-gradient(circle, rgba(185, 217, 235, 0.12) 1.5px, transparent 1.5px)"
-              : "radial-gradient(circle, rgba(0, 35, 102, 0.09) 1.5px, transparent 1.5px)",
-          backgroundSize: "15px 15px",
-          backgroundPosition: "7.5px 7.5px",
-        }}
-        aria-hidden="true"
-      />
       <motion.div
         className="max-w-4xl w-full mx-auto text-center mb-4"
         initial={{ opacity: 0, y: 50 }}

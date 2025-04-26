@@ -128,6 +128,41 @@ body {
   background-color: #060f20;
 }
 
+/* Dotted background patterns for skills section */
+.dotted-bg-light {
+  background-image: radial-gradient(circle, rgba(0, 35, 102, 0.12) 2px, transparent 2px);
+  background-size: 20px 20px;
+  background-position: 0 0;
+}
+
+.dotted-bg-light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0, 35, 102, 0.09) 1.5px, transparent 1.5px);
+  background-size: 15px 15px;
+  background-position: 7.5px 7.5px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.dotted-bg-dark {
+  background-image: radial-gradient(circle, rgba(185, 217, 235, 0.15) 2px, transparent 2px);
+  background-size: 20px 20px;
+  background-position: 0 0;
+}
+
+.dotted-bg-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(185, 217, 235, 0.12) 1.5px, transparent 1.5px);
+  background-size: 15px 15px;
+  background-position: 7.5px 7.5px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
 /* Update the energy flow animation to ensure it works consistently */
 /* Find the existing energyFlow keyframes and replace with: */
 
