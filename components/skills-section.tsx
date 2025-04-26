@@ -309,8 +309,10 @@ export default function SkillsSection() {
         isInView ? "opacity-100" : "opacity-0"
       }`}
       style={{
-        backgroundImage: `
-    radial-gradient(circle, ${resolvedTheme === "dark" ? "rgba(185, 217, 235, 0.15)" : "rgba(0, 35, 102, 0.12)"} 2px, transparent 2px)`,
+        backgroundImage:
+          resolvedTheme === "dark"
+            ? "radial-gradient(circle, rgba(185, 217, 235, 0.15) 2px, transparent 2px)"
+            : "radial-gradient(circle, rgba(0, 35, 102, 0.12) 2px, transparent 2px)",
         backgroundSize: "20px 20px",
         backgroundPosition: "0 0",
       }}
@@ -319,8 +321,10 @@ export default function SkillsSection() {
       <div
         className="absolute inset-0 pointer-events-none opacity-70"
         style={{
-          backgroundImage: `
-    radial-gradient(circle, ${resolvedTheme === "dark" ? "rgba(185, 217, 235, 0.12)" : "rgba(0, 35, 102, 0.09)"} 1.5px, transparent 1.5px)`,
+          backgroundImage:
+            resolvedTheme === "dark"
+              ? "radial-gradient(circle, rgba(185, 217, 235, 0.12) 1.5px, transparent 1.5px)"
+              : "radial-gradient(circle, rgba(0, 35, 102, 0.09) 1.5px, transparent 1.5px)",
           backgroundSize: "15px 15px",
           backgroundPosition: "7.5px 7.5px",
         }}
