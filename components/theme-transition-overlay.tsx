@@ -69,20 +69,15 @@ export default function ThemeTransitionOverlay() {
         ref={overlayRef}
         style={{
           background: overlayColor,
-          borderRadius: "50%",
-          width: isMobile ? "200vw" : "250vw", // Increased size for desktop
-          height: isMobile ? "200vw" : "250vw", // Increased size for desktop
-          maxWidth: isMobile ? "300vh" : "400vh", // Increased max size for desktop
-          maxHeight: isMobile ? "300vh" : "400vh", // Increased max size for desktop
           transform: show ? "scale(1)" : "scale(0.08)",
           opacity: show ? 1 : 0,
-          transition: "transform 0.45s cubic-bezier(.67,0,.2,1), opacity 0.13s cubic-bezier(.75,0,.2,1)",
-          willChange: "transform,opacity",
-          position: "absolute",
-          top: isMobile ? "0" : "-5vh", // Shifted up for desktop
-          transformOrigin: "center top",
+          top: isMobile ? "0" : "-5vh",
         }}
-        className="theme-overlay pointer-events-none"
+        className={`theme-overlay pointer-events-none absolute rounded-full ${
+          isMobile
+            ? "w-[200vw] h-[200vw] max-w-[300vh] max-h-[300vh]"
+            : "w-[250vw] h-[250vw] max-w-[400vh] max-h-[400vh]"
+        } transition-transform-opacity will-change-transform-opacity origin-center-top`}
       />
     </div>
   )

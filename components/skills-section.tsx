@@ -305,9 +305,9 @@ export default function SkillsSection() {
     <section
       id="skills"
       ref={sectionRef}
-      className={`min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-[#060F20] relative overflow-hidden py-0 px-4 transition-opacity duration-500 ${
+      className={`min-h-screen flex flex-col items-center justify-center relative overflow-hidden py-0 px-4 transition-opacity duration-500 ${
         isInView ? "opacity-100" : "opacity-0"
-      } ${resolvedTheme === "dark" ? "dotted-bg-dark" : "dotted-bg-light"}`}
+      } ${resolvedTheme === "dark" ? "skills-bg-dark" : "skills-bg-light"}`}
     >
       <motion.div
         className="max-w-4xl w-full mx-auto text-center mb-4"
@@ -467,7 +467,7 @@ export default function SkillsSection() {
                 aria-label={`${group.title} skills`}
               >
                 <motion.div
-                  className={`w-[${NODE_SIZE}px] h-[${NODE_SIZE}px] rounded-full flex items-center justify-center bg-white/90 dark:bg-[#1F305E] shadow-lg border-2 ${
+                  className={`w-[70px] h-[70px] rounded-full flex items-center justify-center bg-white/90 dark:bg-[#1F305E] shadow-lg border-2 ${
                     isActive ? "border-[#002366] dark:border-[#B9D9EB]" : "border-[#C6E2E9] dark:border-[#1F305E]"
                   }`}
                   whileHover={{ scale: !isMobile ? 1.12 : 1 }}

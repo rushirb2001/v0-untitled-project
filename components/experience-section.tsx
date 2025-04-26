@@ -777,20 +777,8 @@ export default function ExperienceSection() {
 
 // Add this to your globals.css
 const style = document.createElement("style")
-style.textContent = `
-  /* Journey path animation */
-  .journey-path {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: journey-dash 3s ease-in-out forwards;
-  }
-  
-  @keyframes journey-dash {
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-`
+style.textContent =
+  "/* Journey path animation */ .journey-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: journey-dash 3s ease-in-out forwards; } @keyframes journey-dash { to { stroke-dashoffset: 0; } }"
 if (typeof document !== "undefined") {
   document.head.appendChild(style)
 }

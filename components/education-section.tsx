@@ -475,46 +475,8 @@ export default function EducationSection() {
 
 // Add this to your globals.css
 const style = document.createElement("style")
-style.textContent = `
-@keyframes pulse-subtle {
-  0%, 100% {
-    opacity: 0.8;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-.animate-pulse-subtle {
-  animation: pulse-subtle 3s infinite;
-}
-
-.bg-grid-pattern {
-  background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-.dark .bg-grid-pattern {
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-}
-
-/* Wavy timeline animation */
-.wavy-timeline {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: dash 2s ease-in-out forwards;
-}
-
-@keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-`
+style.textContent =
+  "@keyframes pulse-subtle { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } } .animate-pulse-subtle { animation: pulse-subtle 3s infinite; } .bg-grid-pattern { background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px); background-size: 20px 20px; } .dark .bg-grid-pattern { background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px); } .wavy-timeline { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: dash 2s ease-in-out forwards; } @keyframes dash { to { stroke-dashoffset: 0; } }"
 if (typeof document !== "undefined") {
   document.head.appendChild(style)
 }
