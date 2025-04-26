@@ -471,12 +471,11 @@ export default function ExperienceSection() {
 
       {/* Mobile Experience Section - Redesigned with interactive journey concept */}
       {isMobile && (
-        <div className="flex flex-col h-full w-full items-center justify-center px-4">
-          {/* Title above the experience journey */}
-          <h2 className="text-2xl font-bold text-center mb-4 text-navy-blue dark:text-white">Experience</h2>
+        <div className="flex flex-col h-full w-full px-4 pt-0">
+          <h2 className="text-2xl font-bold text-center mb-2 text-navy-blue dark:text-white pt-5">Experience</h2>
 
           {/* Journey Map Container */}
-          <div className="relative w-full max-w-sm" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+          <div className="relative w-full max-w-sm pt-5" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
             {/* Experience Journey Map */}
             <div className="relative w-full bg-navy-blue dark:bg-blue-900 rounded-xl shadow-lg overflow-hidden">
               {/* Journey Path - Animated Line */}

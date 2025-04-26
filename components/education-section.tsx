@@ -106,6 +106,7 @@ export default function EducationSection() {
 
   // First, let's enhance the scroll animation when clicking the education link in navbar
   // Add this function after the toggleExpand function
+  // Add this function after the toggleExpand function
 
   const scrollToEducation = () => {
     // Add entrance animation class when scrolled to via navbar
@@ -270,7 +271,7 @@ export default function EducationSection() {
 
       {/* Enhanced Mobile Timeline */}
       {isMobile && (
-        <div className="flex flex-col h-full w-full px-8 pt-16 pb-8">
+        <div className="flex flex-col h-full w-full px-8 pt-4 pb-8">
           <h2 className="text-2xl font-bold text-center mb-8 text-navy-blue dark:text-white">Education</h2>
 
           {/* Subtle background pattern */}

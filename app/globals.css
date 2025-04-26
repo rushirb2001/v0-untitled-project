@@ -8,6 +8,10 @@ body {
 }
 
 /* Add a class to apply the Funnel Display font */
+/*body {
+  font-family: "Funnel Display", "Fira Sans", sans-serif;
+  @apply bg-background text-foreground;
+}*/
 body {
   font-family: "Funnel Display", "Fira Sans", sans-serif;
   @apply bg-background text-foreground;
@@ -1445,4 +1449,53 @@ section[id] {
   transition-property: transform, opacity;
   transition-duration: 0.7s, 0.3s;
   transition-timing-function: cubic-bezier(0.67, 0, 0.2, 1), cubic-bezier(0.75, 0, 0.2, 1);
+}
+
+/* Mobile section adjustments for proper viewport fitting */
+@media (max-width: 768px) {
+  section[id] {
+    min-height: calc(100vh - 56px); /* Adjust for navbar height */
+    scroll-margin-top: 56px;
+  }
+
+  /* Ensure content doesn't overflow */
+  .overflow-y-auto {
+    max-height: calc(100vh - 120px);
+  }
+
+  /* Adjust vertical spacing for mobile */
+  #about,
+  #skills,
+  #education,
+  #experience,
+  #publications,
+  #contact {
+    padding-top: 60px;
+  }
+}
+
+/* Mobile-specific styles for reduced whitespace */
+@media (max-width: 768px) {
+  /* Reduce whitespace between navbar and section titles */
+  section[id] {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Section title adjustments */
+  h2.text-3xl,
+  h2.text-2xl {
+    margin-top: 0 !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Adjust scroll margin to account for navbar */
+  section[id] {
+    scroll-margin-top: 56px;
+  }
+
+  /* Ensure content doesn't overflow */
+  .overflow-y-auto {
+    max-height: calc(100vh - 100px);
+  }
 }

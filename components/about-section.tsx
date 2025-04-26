@@ -32,10 +32,10 @@ export default function AboutSection() {
     <section
       id="about"
       ref={ref}
-      className="min-h-screen flex items-center justify-center py-12 md:py-16 bg-white dark:bg-navy-dark"
+      className="min-h-screen flex items-center justify-center pt-0 pb-8 md:py-16 bg-white dark:bg-navy-dark"
     >
       <div className="container mx-auto px-5 md:px-4">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-navy-blue dark:text-white animate-fadeIn">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-4 md:mb-12 text-navy-blue dark:text-white animate-fadeIn">
           About Me
         </h2>
 

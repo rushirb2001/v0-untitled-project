@@ -305,7 +305,7 @@ export default function SkillsSection() {
     <section
       id="skills"
       ref={sectionRef}
-      className={`min-h-screen flex flex-col items-center justify-center relative overflow-hidden py-0 px-4 transition-opacity duration-500 ${
+      className={`min-h-screen flex flex-col items-center justify-center relative overflow-hidden pt-4 md:pt-12 px-4 transition-opacity duration-500 ${
         isInView ? "opacity-100" : "opacity-0"
       } ${resolvedTheme === "dark" ? "skills-bg-dark" : "skills-bg-light"}`}
     >
@@ -590,8 +590,8 @@ export default function SkillsSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           {/* Wheel Navigation Indicators */}
-          <div className="flex justify-center items-center mb-2 text-[#002366] dark:text-[#B9D9EB]">
-            <ChevronUp className="h-6 w-6 animate-bounce" />
+          <div className="flex justify-center items-center mb-1 text-[#002366] dark:text-[#B9D9EB]">
+            <ChevronUp className="h-5 w-5 animate-bounce" />
           </div>
 
           {/* iOS-style Wheel - Simplified and Fixed */}

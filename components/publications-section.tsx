@@ -135,12 +135,14 @@ export default function PublicationsSection() {
   return (
     <section
       id="publications"
-      className="min-h-screen flex items-center justify-center py-12 bg-gray-50 dark:bg-navy-dark/90"
+      className="min-h-screen flex items-center justify-center py-12 md:py-12 pt-4 md:pt-12 bg-gray-50 dark:bg-navy-dark/90"
     >
       <div className="container mx-auto px-4 max-w-6xl">
-        <h2 className="text-3xl font-bold text-center mb-8 text-navy-blue dark:text-white animate-fadeIn">
-          Publications & Research
-        </h2>
+        <div className="md:pt-6 pt-0">
+          <h2 className="text-3xl font-bold mb-3 md:mb-6 text-center text-navy-blue dark:text-white animate-fadeIn">
+            Publications & Research
+          </h2>
+        </div>
 
         {/* Desktop Publications View */}
         {!isMobile && (

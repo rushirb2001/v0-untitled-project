@@ -77,7 +77,7 @@ export default function ContactSection() {
     <section
       id="contact"
       ref={ref}
-      className="min-h-screen flex flex-col justify-center items-center py-20 px-4 bg-gray-50 dark:bg-[#060F20] relative overflow-hidden"
+      className="min-h-screen flex flex-col justify-center items-center py-4 md:py-20 pt-0 md:pt-20 px-4 bg-gray-50 dark:bg-[#060F20] relative overflow-hidden"
     >
       {/* Background blobs */}
       <div className="absolute z-0 w-40 h-40 rounded-full bg-gradient-to-tr from-[#002366] to-[#B9D9EB] opacity-20 blur-3xl top-1/4 -left-20 animate-blob-float"></div>
@@ -87,12 +87,12 @@ export default function ContactSection() {
       ></div>
 
       <motion.div
-        className="max-w-4xl w-full mx-auto text-center mb-8 md:mb-12 relative z-10"
+        className="max-w-4xl w-full mx-auto text-center mb-4 md:mb-12 relative z-10"
         initial={{ opacity: 0, y: 50 }}
         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className="text-4xl font-bold text-center mb-4 text-[#002366] dark:text-white">Get In Touch</h2>
+        <h2 className="text-4xl font-bold text-center mb-2 md:mb-4 text-[#002366] dark:text-white">Get In Touch</h2>
         <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
           Have a question or want to work together? Feel free to reach out using the form below or through my social
           media.
