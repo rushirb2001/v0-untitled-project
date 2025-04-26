@@ -7,6 +7,12 @@ body {
   transition: color 0.5s, border-color 0.5s;
 }
 
+/* Add a class to apply the Funnel Display font */
+body {
+  font-family: "Funnel Display", "Fira Sans", sans-serif;
+  @apply bg-background text-foreground;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -1421,9 +1427,9 @@ section[id] {
   }
 }
 
-/* Add this class for the theme transition overlay */
+/* Add this class for the theme transition overlay - updated for slower animation */
 .transition-transform-opacity {
-  transition: transform 0.45s cubic-bezier(0.67, 0, 0.2, 1), opacity 0.13s cubic-bezier(0.75, 0, 0.2, 1);
+  transition: transform 0.7s cubic-bezier(0.67, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.75, 0, 0.2, 1);
 }
 
 .will-change-transform-opacity {
@@ -1434,17 +1440,9 @@ section[id] {
   transform-origin: center top;
 }
 
-/* Add these specific utility classes for the theme transition overlay */
+/* Add these specific utility classes for the theme transition overlay - updated for slower animation */
 .transition-transform-opacity {
   transition-property: transform, opacity;
-  transition-duration: 0.45s, 0.13s;
+  transition-duration: 0.7s, 0.3s;
   transition-timing-function: cubic-bezier(0.67, 0, 0.2, 1), cubic-bezier(0.75, 0, 0.2, 1);
-}
-
-.will-change-transform-opacity {
-  will-change: transform, opacity;
-}
-
-.origin-center-top {
-  transform-origin: center top;
 }

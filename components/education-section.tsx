@@ -275,7 +275,7 @@ export default function EducationSection() {
 
           {/* Subtle background pattern */}
           <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none">
-            <div className="absolute inset-0 bg-grid-pattern"></div>
+            <div className="absolute inset-0 bg-royal-blue/10 dark:bg-columbia-blue/10"></div>
           </div>
 
           <div className="relative flex-1 flex flex-col items-center justify-center">
@@ -324,7 +324,7 @@ export default function EducationSection() {
                       }}
                     >
                       <motion.div
-                        className="w-6 h-6 rounded-full bg-white dark:bg-navy-dark border-2 border-blue-500 flex items-center justify-center"
+                        className="w-6 h-6 rounded-full bg-white dark:bg-navy-dark border-2 border-royal-blue dark:border-columbia-blue flex items-center justify-center"
                         whileHover={{ scale: 1.2 }}
                         animate={{
                           y: [0, -3, 0],
@@ -351,7 +351,7 @@ export default function EducationSection() {
                       style={{
                         top: "6px", // Start from the bottom of the icon
                         height: "14px", // Length of connector line
-                        background: "linear-gradient(to bottom, #3b82f6, #8b5cf6)",
+                        background: "linear-gradient(to bottom, #002366, #1f305e)",
                       }}
                     />
 
@@ -370,7 +370,7 @@ export default function EducationSection() {
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
                       {/* Decorative accent */}
-                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-purple-500"></div>
+                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-royal-blue to-delft-blue"></div>
 
                       {/* Degree and University */}
                       <div className={`mb-1 ${isLeft ? "text-right" : "text-left"}`}>
@@ -407,14 +407,14 @@ export default function EducationSection() {
                             {edu.coursework.map((course, i) => (
                               <motion.span
                                 key={i}
-                                className="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900/60 text-blue-800 dark:text-blue-200 rounded-full shadow-sm"
+                                className="text-xs px-2 py-1 bg-blue-100 dark:bg-navy-blue/60 text-royal-blue dark:text-columbia-blue rounded-full shadow-sm"
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: i * 0.1 }}
                                 whileHover={{
                                   scale: 1.05,
                                   backgroundColor:
-                                    resolvedTheme === "dark" ? "rgba(30, 64, 175, 0.6)" : "rgba(219, 234, 254, 1)",
+                                    resolvedTheme === "dark" ? "rgba(31, 48, 94, 0.6)" : "rgba(198, 226, 233, 1)",
                                 }}
                               >
                                 {course}
@@ -426,7 +426,7 @@ export default function EducationSection() {
 
                       {/* Toggle indicator with animation */}
                       <motion.div
-                        className={`mt-2 flex items-center text-xs text-blue-600 dark:text-blue-300 ${
+                        className={`mt-2 flex items-center text-xs text-royal-blue dark:text-columbia-blue ${
                           isLeft ? "justify-end" : "justify-start"
                         }`}
                         whileHover={{ scale: 1.05 }}

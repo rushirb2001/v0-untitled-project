@@ -4,19 +4,10 @@ import { useEffect } from "react"
 
 export default function FontLoader() {
   useEffect(() => {
-    // Load Funnel Display font
-    const link = document.createElement("link")
-    link.href = "https://fonts.cdnfonts.com/css/funnel-display"
-    link.rel = "stylesheet"
-    document.head.appendChild(link)
-
-    return () => {
-      // Clean up
-      const fontLink = document.head.querySelector('link[href="https://fonts.cdnfonts.com/css/funnel-display"]')
-      if (fontLink) {
-        document.head.removeChild(fontLink)
-      }
-    }
+    // This component is now only responsible for any additional font loading
+    // that can't be handled by the link tags in the layout
+    // We can keep this component for any dynamic font loading needs
+    // but the main Funnel Display font is now loaded via link tags in layout.tsx
   }, [])
 
   return null

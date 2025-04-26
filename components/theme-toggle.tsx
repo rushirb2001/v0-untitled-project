@@ -33,7 +33,7 @@ export function ThemeToggle() {
     if (isAnimating) {
       const timer = setTimeout(() => {
         setIsAnimating(false)
-      }, 1000) // Ensure this is longer than the animation duration
+      }, 1200) // Increased from 1000ms to 1200ms to match the slower animation
       return () => clearTimeout(timer)
     }
   }, [isAnimating])
@@ -64,6 +64,11 @@ export function ThemeToggle() {
         },
       }),
     )
+
+    // Set the theme after a small delay to allow the animation to start
+    setTimeout(() => {
+      setTheme(nextTheme)
+    }, 100) // Slightly increased delay
   }
 
   return (
