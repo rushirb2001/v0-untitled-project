@@ -1276,7 +1276,7 @@ section[id] {
 
 /* Update blob colors in contact section */
 .absolute.z-0.w-40.h-40.rounded-full.bg-gradient-to-tr {
-  background: linear-gradient(to tr, #002366, #b9d9eb);
+  background: linear-gradient(to right top, #002366, #b9d9eb);
 }
 
 /* Add these styles to improve the mobile skills wheel animation */

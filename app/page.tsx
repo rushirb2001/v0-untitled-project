@@ -99,7 +99,11 @@ export default function Home() {
 
   // Function to open resume PDF in a new tab
   const openResume = () => {
-    window.open("/resume.pdf", "_blank")
+    window.open(
+      "https://v9fl0vq2qbxv8yrh.public.blob.vercel-storage.com/resume-ZpPZh22hfStdIegCtsD7DORRyDEFN7.pdf",
+      "_blank",
+      "noopener,noreferrer",
+    )
   }
 
   return (
@@ -240,7 +244,13 @@ export default function Home() {
           {/* Right Side: Profile Photo */}
           <div className="w-full md:w-1/2 flex flex-col items-center justify-center order-1 md:order-2">
             <div className="relative w-60 h-60 sm:w-72 sm:h-72 md:w-96 md:h-96 mb-3 rounded-full overflow-hidden mx-auto md:mx-0 z-[10000]">
-              <Image src="/images/profile.jpg" alt="Profile Picture" fill className="object-cover" priority />
+              <Image
+                src="https://v9fl0vq2qbxv8yrh.public.blob.vercel-storage.com/minprofile-de9qIv9r5L2DFt4EnmhmZGPY9lchb1.png"
+                alt="Profile Picture"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
           </div>
         </div>
