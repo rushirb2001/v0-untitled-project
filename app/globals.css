@@ -164,8 +164,6 @@ body {
 }
 
 /* Add these simplified static classes for the skills section background */
-
-/* Add after the dotted-bg-light and dotted-bg-dark classes */
 .skills-bg-light {
   background-color: #f9fafb;
   background-image: radial-gradient(circle, rgba(0, 35, 102, 0.12) 2px, transparent 2px);
@@ -203,8 +201,6 @@ body {
 }
 
 /* Update the energy flow animation to ensure it works consistently */
-/* Find the existing energyFlow keyframes and replace with */
-
 @keyframes energyFlow {
   0% {
     stroke-dashoffset: 16;
@@ -217,12 +213,12 @@ body {
 .energy-flow {
   animation: energyFlow 1s linear infinite;
   will-change: stroke-dashoffset;
-  stroke-linecap: butt; /* Changed from round to butt for precise connections */
+  stroke-linecap: butt;
 }
 
 /* Add this new style for the base connection lines */
 svg line {
-  stroke-linecap: butt; /* Ensure all lines have precise endpoints */
+  stroke-linecap: butt;
 }
 
 /* Enhanced skill node animations */
@@ -262,7 +258,7 @@ svg line {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-funnel;
+    @apply bg-background text-foreground;
   }
   html {
     @apply scroll-smooth;
@@ -336,7 +332,7 @@ section[id] {
   width: 24px;
   height: 24px;
   background: #fff;
-  border: 4px solid #002366; /* Updated to Royal blue */
+  border: 4px solid #002366;
   border-radius: 50%;
   z-index: 5;
 }
@@ -352,7 +348,7 @@ section[id] {
   right: -84px;
   width: 70px;
   text-align: center;
-  color: #002366; /* Updated to Royal blue */
+  color: #002366;
   font-weight: bold;
   background: #fff;
   border-radius: 8px;
@@ -404,7 +400,7 @@ section[id] {
 }
 
 .bubble {
-  box-shadow: 0 2px 10px 0 rgba(0, 35, 102, 0.07); /* Updated to Royal blue */
+  box-shadow: 0 2px 10px 0 rgba(0, 35, 102, 0.07);
 }
 
 /* Mobile Education Timeline Styles */
@@ -429,17 +425,13 @@ section[id] {
 .education-connector {
   position: absolute;
   width: 2px;
-  background: linear-gradient(to bottom, #002366, #b9d9eb); /* Updated to Royal blue and Columbia blue */
+  background: linear-gradient(to bottom, #002366, #b9d9eb);
   z-index: 2;
 }
 
 .dark .education-connector {
-  background: linear-gradient(to #002366, #b9d9eb); /* Updated to Royal blue and Columbia blue */
+  background: linear-gradient(to bottom, #002366, #b9d9eb);
   z-index: 2;
-}
-
-.dark .education-connector {
-  background: linear-gradient(to bottom, #002366, #b9d9eb); /* Updated to Royal blue and Columbia blue */
 }
 
 /* Add this media query for extra small devices */
@@ -655,6 +647,7 @@ section[id] {
     filter: blur(50px);
   }
 }
+
 .animate-blob-float {
   animation: blob-float 5s ease-in-out infinite;
 }
@@ -670,8 +663,8 @@ section[id] {
   font-weight: 500;
   font-size: 0.875rem;
   white-space: nowrap;
-  box-shadow: 0 4px 20px 0 rgba(0, 35, 102, 0.15); /* Updated to Royal blue */
-  border: 1.5px solid rgba(0, 35, 102, 0.3); /* Updated to Royal blue */
+  box-shadow: 0 4px 20px 0 rgba(0, 35, 102, 0.15);
+  border: 1.5px solid rgba(0, 35, 102, 0.3);
   transition: box-shadow 0.25s, background 0.2s, color 0.2s, transform 0.2s;
   z-index: 60;
   min-width: 82px;
@@ -681,29 +674,29 @@ section[id] {
 }
 
 .skill-bubble:hover {
-  box-shadow: 0 6px 25px 0 rgba(0, 35, 102, 0.25); /* Updated to Royal blue */
+  box-shadow: 0 6px 25px 0 rgba(0, 35, 102, 0.25);
   transform: translateY(-2px) scale(1.03);
 }
 
 .dark .skill-bubble {
-  background: rgba(6, 15, 32, 0.95); /* Updated to Rich black */
+  background: rgba(6, 15, 32, 0.95);
   color: #f1f5f9;
-  border: 1.5px solid rgba(0, 35, 102, 0.4); /* Updated to Royal blue */
+  border: 1.5px solid rgba(0, 35, 102, 0.4);
 }
 
 /* Add a subtle pulse animation for the skill nodes */
 @keyframes subtle-pulse {
   0% {
     transform: scale(1);
-    box-shadow: 0 4px 12px 0 rgba(0, 35, 102, 0.15); /* Updated to Royal blue */
+    box-shadow: 0 4px 12px 0 rgba(0, 35, 102, 0.15);
   }
   50% {
     transform: scale(1.05);
-    box-shadow: 0 6px 16px 0 rgba(0, 35, 102, 0.25); /* Updated to Royal blue */
+    box-shadow: 0 6px 16px 0 rgba(0, 35, 102, 0.25);
   }
   100% {
     transform: scale(1);
-    box-shadow: 0 4px 12px 0 rgba(0, 35, 102, 0.15); /* Updated to Royal blue */
+    box-shadow: 0 4px 12px 0 rgba(0, 35, 102, 0.15);
   }
 }
 
@@ -724,6 +717,7 @@ section[id] {
   stroke-dasharray: 6, 3;
   opacity: 0.8 !important;
 }
+
 .skill-bubble-label {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -731,20 +725,21 @@ section[id] {
   white-space: nowrap;
   display: inline-block;
 }
+
 .dark .skill-bubble {
-  background: #060f20; /* Updated to Rich black */
+  background: #060f20;
   color: #f1f5f9;
-  border: 1.5px solid #002366; /* Updated to Royal blue */
+  border: 1.5px solid #002366;
 }
 
 /* Add this to your existing globals.css animations */
 @keyframes pulse-border {
   0%,
   100% {
-    border-color: rgba(0, 35, 102, 0.5); /* Updated to Royal blue */
+    border-color: rgba(0, 35, 102, 0.5);
   }
   50% {
-    border-color: rgba(0, 35, 102, 1); /* Updated to Royal blue */
+    border-color: rgba(0, 35, 102, 1);
   }
 }
 
@@ -765,7 +760,7 @@ section[id] {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: linear-gradient(to bottom, #060f20 0%, #002366 100%); /* Updated to Rich black and Royal blue */
+  background: linear-gradient(to bottom, #060f20 0%, #002366 100%);
   z-index: 1;
   transform: translateX(-50%);
 }
@@ -810,8 +805,8 @@ section[id] {
 }
 
 .timeline-item-modern.active .timeline-card-modern {
-  border-color: #002366; /* Updated to Royal blue */
-  box-shadow: 0 6px 16px rgba(0, 35, 102, 0.15); /* Updated to Royal blue */
+  border-color: #002366;
+  box-shadow: 0 6px 16px rgba(0, 35, 102, 0.15);
   transform: translateY(-3px);
 }
 
@@ -820,7 +815,7 @@ section[id] {
   top: 50%;
   width: 36px;
   height: 36px;
-  background: #060f20; /* Updated to Rich black */
+  background: #060f20;
   border: 3px solid white;
   border-radius: 50%;
   display: flex;
@@ -842,18 +837,18 @@ section[id] {
 
 .timeline-item-modern:hover .timeline-dot-modern {
   transform: translateY(-50%) scale(1.1);
-  background: #002366; /* Updated to Royal blue */
+  background: #002366;
 }
 
 .timeline-item-modern.active .timeline-dot-modern {
-  background: #002366; /* Updated to Royal blue */
+  background: #002366;
   transform: translateY(-50%) scale(1.15);
-  box-shadow: 0 0 0 4px rgba(0, 35, 102, 0.3), 0 0 15px rgba(0, 35, 102, 0.5); /* Updated to Royal blue */
+  box-shadow: 0 0 0 4px rgba(0, 35, 102, 0.3), 0 0 15px rgba(0, 35, 102, 0.5);
 }
 
 .timeline-date-modern {
   font-size: 0.9rem;
-  color: #002366; /* Updated to Royal blue */
+  color: #002366;
   font-weight: 600;
   margin-bottom: 4px;
 }
@@ -861,7 +856,7 @@ section[id] {
 .timeline-company-modern {
   font-size: 1rem;
   font-weight: 700;
-  color: #060f20; /* Updated to Rich black */
+  color: #060f20;
   margin-bottom: 2px;
 }
 
@@ -871,14 +866,14 @@ section[id] {
 }
 
 .dark .timeline-card-modern {
-  background: #1f305e; /* Updated to Delft Blue */
-  border-color: #002366; /* Updated to Royal blue */
+  background: #1f305e;
+  border-color: #002366;
 }
 
 .dark .timeline-dot-modern {
-  background: #002366; /* Updated to Royal blue */
-  border-color: #1f305e; /* Updated to Delft Blue */
-  box-shadow: 0 0 0 4px rgba(0, 35, 102, 0.5); /* Updated to Royal blue */
+  background: #002366;
+  border-color: #1f305e;
+  box-shadow: 0 0 0 4px rgba(0, 35, 102, 0.5);
 }
 
 .dark .timeline-company-modern {
@@ -886,11 +881,11 @@ section[id] {
 }
 
 .dark .timeline-position-modern {
-  color: #b9d9eb; /* Updated to Columbia blue */
+  color: #b9d9eb;
 }
 
 .dark .timeline-date-modern {
-  color: #b9d9eb; /* Updated to Columbia blue */
+  color: #b9d9eb;
 }
 
 /* Mobile adjustments */
@@ -1018,7 +1013,7 @@ section[id] {
 }
 
 .education-carousel-dot.active {
-  background-color: #002366; /* Updated to Royal blue */
+  background-color: #002366;
   transform: scale(1.5);
 }
 
@@ -1056,19 +1051,19 @@ section[id] {
 }
 
 .dark .education-nav-button {
-  background-color: rgba(31, 48, 94, 0.8); /* Updated to Delft Blue */
+  background-color: rgba(31, 48, 94, 0.8);
 }
 
 .dark .education-nav-button:hover {
-  background-color: rgba(31, 48, 94, 0.9); /* Updated to Delft Blue */
+  background-color: rgba(31, 48, 94, 0.9);
 }
 
 .dark .education-carousel-dot {
-  background-color: #1f305e; /* Updated to Delft Blue */
+  background-color: #1f305e;
 }
 
 .dark .education-carousel-dot.active {
-  background-color: #b9d9eb; /* Updated to Columbia blue */
+  background-color: #b9d9eb;
 }
 
 /* Wavy timeline styles */
@@ -1108,8 +1103,8 @@ section[id] {
 }
 
 .dark .education-card {
-  background-color: rgba(6, 15, 32, 1); /* Updated to Rich black - Fully opaque in dark mode */
-  border-color: rgba(0, 35, 102, 0.6); /* Updated to Royal blue */
+  background-color: rgba(6, 15, 32, 1);
+  border-color: rgba(0, 35, 102, 0.6);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   z-index: 10; /* Higher z-index to stay above timeline */
 }
@@ -1128,25 +1123,19 @@ section[id] {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
   animation: dash 2s ease-in-out forwards;
-  filter: drop-shadow(0 0 3px rgba(0, 35, 102, 0.3)); /* Updated to Royal blue */
+  filter: drop-shadow(0 0 3px rgba(0, 35, 102, 0.3));
 }
 
 .section-entered .wavy-timeline {
   animation: dash 1.5s ease-in-out forwards, glow 3s infinite alternate;
 }
 
-@keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
 @keyframes glow {
   from {
-    filter: drop-shadow(0 0 2px rgba(0, 35, 102, 0.3)); /* Updated to Royal blue */
+    filter: drop-shadow(0 0 2px rgba(0, 35, 102, 0.3));
   }
   to {
-    filter: drop-shadow(0 0 5px rgba(0, 35, 102, 0.6)); /* Updated to Royal blue */
+    filter: drop-shadow(0 0 5px rgba(0, 35, 102, 0.6));
   }
 }
 
@@ -1183,14 +1172,14 @@ section[id] {
 }
 
 .dark .section-entered#education {
-  background-color: rgba(6, 15, 32, 0.8); /* Updated to Rich black */
+  background-color: rgba(6, 15, 32, 0.8);
 }
 
 /* Enhanced timeline in dark mode */
 .dark .wavy-timeline {
   stroke: url(#timeline-gradient);
   stroke-width: 4;
-  filter: drop-shadow(0 0 8px rgba(185, 217, 235, 0.6)); /* Updated to Columbia blue */
+  filter: drop-shadow(0 0 8px rgba(185, 217, 235, 0.6));
 }
 
 /* Journey path animation for experience section */
@@ -1208,15 +1197,15 @@ section[id] {
 
 /* Experience journey card styles */
 .experience-journey-card {
-  background: rgba(6, 15, 32, 0.8); /* Updated to Rich black */
+  background: rgba(6, 15, 32, 0.8);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(0, 35, 102, 0.2); /* Updated to Royal blue */
+  border: 1px solid rgba(0, 35, 102, 0.2);
   transition: all 0.3s ease;
 }
 
 .experience-journey-card:hover {
-  border-color: rgba(0, 35, 102, 0.4); /* Updated to Royal blue */
-  box-shadow: 0 0 20px rgba(0, 35, 102, 0.3); /* Updated to Royal blue */
+  border-color: rgba(0, 35, 102, 0.4);
+  box-shadow: 0 0 20px rgba(0, 35, 102, 0.3);
 }
 
 /* Experience section expandable sections */
@@ -1239,30 +1228,30 @@ section[id] {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: rgba(0, 35, 102, 0.3); /* Updated to Royal blue */
+  background-color: rgba(0, 35, 102, 0.3);
   transition: all 0.3s ease;
 }
 
 .experience-indicator.active {
   width: 24px;
-  background-color: rgba(0, 35, 102, 1); /* Updated to Royal blue */
+  background-color: rgba(0, 35, 102, 1);
 }
 
 /* Update the experience journey card styles to use solid backgrounds */
 .experience-journey-card {
-  background: #ffffff; /* Solid white for light mode */
+  background: #ffffff;
   border: 1px solid #e2e8f0;
   transition: all 0.3s ease;
 }
 
 .dark .experience-journey-card {
-  background: #060f20; /* Updated to Rich black for dark mode */
-  border: 1px solid #002366; /* Updated to Royal blue */
+  background: #060f20;
+  border: 1px solid #002366;
 }
 
 .experience-journey-card:hover {
-  border-color: #002366; /* Updated to Royal blue */
-  box-shadow: 0 0 20px rgba(0, 35, 102, 0.3); /* Updated to Royal blue */
+  border-color: #002366;
+  box-shadow: 0 0 20px rgba(0, 35, 102, 0.3);
 }
 
 /* Remove backdrop-blur and transparency from all experience section elements */
@@ -1271,7 +1260,7 @@ section[id] {
 }
 
 .dark .experience-section-mobile .bg-white\/10 {
-  background-color: #060f20; /* Updated to Rich black */
+  background-color: #060f20;
 }
 
 .experience-section-mobile .bg-white\/5 {
@@ -1279,7 +1268,7 @@ section[id] {
 }
 
 .dark .experience-section-mobile .bg-white\/5 {
-  background-color: #1f305e; /* Updated to Delft Blue */
+  background-color: #1f305e;
 }
 
 /* Update expandable section backgrounds */
@@ -1289,12 +1278,12 @@ section[id] {
 }
 
 .dark .experience-expandable-section {
-  background-color: #1f305e; /* Updated to Delft Blue */
-  border: 1px solid #002366; /* Updated to Royal blue */
+  background-color: #1f305e;
+  border: 1px solid #002366;
 }
 
 .experience-expandable-section.active {
-  border-color: #002366; /* Updated to Royal blue */
+  border-color: #002366;
 }
 
 /* Add these animations to your existing globals.css file */
@@ -1435,6 +1424,21 @@ section[id] {
 /* Add this class for the theme transition overlay */
 .transition-transform-opacity {
   transition: transform 0.45s cubic-bezier(0.67, 0, 0.2, 1), opacity 0.13s cubic-bezier(0.75, 0, 0.2, 1);
+}
+
+.will-change-transform-opacity {
+  will-change: transform, opacity;
+}
+
+.origin-center-top {
+  transform-origin: center top;
+}
+
+/* Add these specific utility classes for the theme transition overlay */
+.transition-transform-opacity {
+  transition-property: transform, opacity;
+  transition-duration: 0.45s, 0.13s;
+  transition-timing-function: cubic-bezier(0.67, 0, 0.2, 1), cubic-bezier(0.75, 0, 0.2, 1);
 }
 
 .will-change-transform-opacity {
