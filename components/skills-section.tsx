@@ -40,11 +40,6 @@ const skillCategories: SkillCategory[] = [
         proficiency: 7,
       },
       {
-        name: "Java",
-        icon: "/icons/java-icon.svg",
-        proficiency: 6,
-      },
-      {
         name: "MATLAB",
         icon: "https://v9fl0vq2qbxv8yrh.public.blob.vercel-storage.com/matlab-svgrepo-com-NmWt8xWwLlQftLElAkJYwolqdJNuPI.svg",
         proficiency: 7,
@@ -178,11 +173,6 @@ const skillCategories: SkillCategory[] = [
         name: "Git",
         icon: "/icons/git.svg",
         proficiency: 8,
-      },
-      {
-        name: "CI/CD",
-        icon: "/software-delivery-cycle.png",
-        proficiency: 7,
       },
     ],
   },

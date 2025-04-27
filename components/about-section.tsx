@@ -199,198 +199,284 @@ export default function AboutSection() {
         <canvas ref={particlesRef} className="w-full h-full" />
       </div>
 
-      <div className="container mx-auto px-5 md:px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-6"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-navy-blue dark:text-white inline-block relative">
-            About Me
-          </h2>
-          <p className="mt-4 text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
-            Machine Learning Engineer with a passion for transforming complex data into intelligent solutions
-          </p>
-        </motion.div>
+      {/* Mobile View */}
+      {isMobile ? (
+        <div className="container mx-auto px-5 py-12 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-2"
+          >
+            <h2 className="text-2xl font-bold text-navy-blue dark:text-white inline-block relative">About Me</h2>
+          </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center max-w-6xl mx-auto">
-          {/* Left side: Profile and 3D elements */}
-          <motion.div variants={cardVariants} initial="hidden" animate={controls} className="relative">
-            <div className="relative mx-auto md:mx-0 max-w-md">
-              {/* Main profile image with 3D effect */}
-              <div className="relative h-[100px] md:h-[300px] rounded-2xl overflow-hidden shadow-2xl transform perspective-1000 hover:rotate-y-5 transition-transform duration-700">
-                <Image
-                  src="/images/avatar.png"
-                  alt="Rushir Bhavsar"
-                  fill
-                  className="object-cover object-center"
-                  priority
-                />
+          {/* Metrics Cards - Simplified and Prominent */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="grid grid-cols-3 gap-3 mb-8 max-w-sm mx-auto"
+          >
+            <div className="bg-white dark:bg-navy-blue/80 rounded-xl p-3 shadow-lg transform hover:scale-105 transition-transform">
+              <div className="text-blue-600 dark:text-blue-400 text-xl font-bold">1+</div>
+              <div className="text-navy-blue dark:text-white text-xs font-medium">Years Exp</div>
+            </div>
 
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-blue/80 via-navy-blue/40 to-transparent"></div>
+            <div className="bg-white dark:bg-navy-blue/80 rounded-xl p-3 shadow-lg transform hover:scale-105 transition-transform">
+              <div className="text-blue-600 dark:text-blue-400 text-xl font-bold">5+</div>
+              <div className="text-navy-blue dark:text-white text-xs font-medium">Projects</div>
+            </div>
 
-                {/* Floating tech icons */}
-                <motion.div
-                  className="absolute top-6 right-6"
-                  animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }}
-                  transition={{ repeat: Number.POSITIVE_INFINITY, duration: 4, ease: "easeInOut" }}
-                >
-                  <div className="bg-white dark:bg-navy-blue/80 p-2 rounded-full shadow-lg">
-                    <Brain className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="absolute bottom-20 left-6"
-                  animate={{ y: [0, 10, 0], rotate: [0, -5, 0] }}
-                  transition={{ repeat: Number.POSITIVE_INFINITY, duration: 5, ease: "easeInOut", delay: 0.5 }}
-                >
-                  <div className="bg-white dark:bg-navy-blue/80 p-2 rounded-full shadow-lg">
-                    <Database className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="absolute top-1/3 left-6"
-                  animate={{ y: [0, 8, 0], rotate: [0, 3, 0] }}
-                  transition={{ repeat: Number.POSITIVE_INFINITY, duration: 4.5, ease: "easeInOut", delay: 1 }}
-                >
-                  <div className="bg-white dark:bg-navy-blue/80 p-2 rounded-full shadow-lg">
-                    <Cpu className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                  </div>
-                </motion.div>
-
-                {/* Name and title overlay */}
-                <div className="absolute bottom-0 left-0 w-full p-6 z-10">
-                  <h3 className="text-white text-2xl font-bold">Rushir Bhavsar</h3>
-                  <p className="text-blue-200 text-sm">Machine Learning Engineer</p>
-                </div>
-              </div>
-
-              {/* Stats cards with 3D effect */}
-              <div className="grid grid-cols-3 gap-3 mt-4">
-                <motion.div
-                  className="bg-white dark:bg-navy-blue/80 rounded-xl p-3 shadow-lg transform hover:scale-105 transition-transform"
-                  variants={cardVariants}
-                  initial="hidden"
-                  animate={controls}
-                  transition={{ delay: 0.2 }}
-                >
-                  <div className="text-blue-600 dark:text-blue-400 text-xl font-bold">1+</div>
-                  <div className="text-navy-blue dark:text-white text-xs font-medium">Years Exp</div>
-                </motion.div>
-
-                <motion.div
-                  className="bg-white dark:bg-navy-blue/80 rounded-xl p-3 shadow-lg transform hover:scale-105 transition-transform"
-                  variants={cardVariants}
-                  initial="hidden"
-                  animate={controls}
-                  transition={{ delay: 0.3 }}
-                >
-                  <div className="text-blue-600 dark:text-blue-400 text-xl font-bold">5+</div>
-                  <div className="text-navy-blue dark:text-white text-xs font-medium">Projects</div>
-                </motion.div>
-
-                <motion.div
-                  className="bg-white dark:bg-navy-blue/80 rounded-xl p-3 shadow-lg transform hover:scale-105 transition-transform"
-                  variants={cardVariants}
-                  initial="hidden"
-                  animate={controls}
-                  transition={{ delay: 0.4 }}
-                >
-                  <div className="text-blue-600 dark:text-blue-400 text-xl font-bold">3</div>
-                  <div className="text-navy-blue dark:text-white text-xs font-medium">Publications</div>
-                </motion.div>
-              </div>
+            <div className="bg-white dark:bg-navy-blue/80 rounded-xl p-3 shadow-lg transform hover:scale-105 transition-transform">
+              <div className="text-blue-600 dark:text-blue-400 text-xl font-bold">3</div>
+              <div className="text-navy-blue dark:text-white text-xs font-medium">Publications</div>
             </div>
           </motion.div>
 
-          {/* Right side: Content tabs */}
-          <motion.div variants={containerVariants} initial="hidden" animate={controls} className="flex flex-col">
-            {/* Tab navigation */}
-            <div className="flex mb-6 bg-gray-100 dark:bg-navy-blue/40 p-1 rounded-lg shadow-inner">
-              {Object.keys(tabContent).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-200 ${
-                    activeTab === tab
-                      ? "bg-white dark:bg-navy-blue shadow-md text-blue-600 dark:text-blue-400"
-                      : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-300"
-                  }`}
-                >
-                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                </button>
-              ))}
+          {/* Concise Bio - Creative Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="bg-white dark:bg-navy-blue/30 rounded-2xl p-5 shadow-xl relative overflow-hidden mx-auto max-w-sm"
+          >
+            {/* Decorative elements */}
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-100/50 dark:bg-blue-900/20 rounded-full blur-2xl"></div>
+            <div className="absolute -top-6 -left-6 w-24 h-24 bg-blue-100/30 dark:bg-blue-900/10 rounded-full blur-xl"></div>
+
+            {/* Concise text */}
+            <p className="text-gray-700 dark:text-gray-300 text-center leading-relaxed relative z-10">
+              Machine Learning Engineer transforming complex data into intelligent solutions. I build AI systems that
+              enhance human capabilities through practical machine learning.
+            </p>
+
+            {/* Skills tags */}
+            <div className="flex flex-wrap justify-center gap-2 mt-4">
+              <span className="px-2 py-1 bg-blue-50 dark:bg-navy-blue/50 text-blue-700 dark:text-blue-300 text-xs rounded-full">
+                Neural Networks
+              </span>
+              <span className="px-2 py-1 bg-blue-50 dark:bg-navy-blue/50 text-blue-700 dark:text-blue-300 text-xs rounded-full">
+                Data Engineering
+              </span>
+              <span className="px-2 py-1 bg-blue-50 dark:bg-navy-blue/50 text-blue-700 dark:text-blue-300 text-xs rounded-full">
+                ML Systems
+              </span>
             </div>
+          </motion.div>
 
-            {/* Tab content with animations */}
-            <div className="bg-white dark:bg-navy-blue/30 rounded-2xl p-4 shadow-xl min-h-[180px] relative overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeTab}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="h-full"
-                >
-                  <div className="flex items-start mb-2">
-                    <div className="p-3 bg-blue-50 dark:bg-navy-blue/50 rounded-xl mr-4">
-                      {tabContent[activeTab].icon}
-                    </div>
-                    <h3 className="text-xl font-bold text-navy-blue dark:text-white mt-2">
-                      {tabContent[activeTab].title}
-                    </h3>
-                  </div>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{tabContent[activeTab].content}</p>
-
-                  {/* Decorative elements */}
-                  <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-100/50 dark:bg-blue-900/20 rounded-full blur-2xl"></div>
-                  <div className="absolute -top-6 -left-6 w-24 h-24 bg-blue-100/30 dark:bg-blue-900/10 rounded-full blur-xl"></div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Skills highlights */}
-            <motion.div variants={cardVariants} className="mt-6 grid grid-cols-2 gap-3">
-              <div className="bg-white dark:bg-navy-blue/30 p-3 rounded-xl shadow-md">
-                <div className="flex items-center mb-2">
-                  <Network className="w-5 h-5 text-blue-600 dark:text-blue-400 mr-2" />
-                  <h4 className="font-small text-navy-blue dark:text-white">Neural Networks</h4>
-                </div>
-                <div className="h-2 bg-gray-200 dark:bg-navy-blue/50 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-blue-600 to-blue-400 w-[85%] rounded-full"></div>
-                </div>
-              </div>
-
-              <div className="bg-white dark:bg-navy-blue/30 p-3 rounded-xl shadow-md">
-                <div className="flex items-center mb-2">
-                  <Database className="w-5 h-5 text-blue-600 dark:text-blue-400 mr-2" />
-                  <h4 className="font-small text-navy-blue dark:text-white">Data Engineering</h4>
-                </div>
-                <div className="h-2 bg-gray-200 dark:bg-navy-blue/50 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-blue-600 to-blue-400 w-[75%] rounded-full"></div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Contact button */}
-            <motion.div variants={cardVariants} className="mt-8">
-              <button
-                onClick={scrollToContact}
-                className="group bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white py-3 px-6 rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 w-full md:w-auto"
-              >
-                <MessageCircle className="mr-2 h-5 w-5" />
-                <span>Let's Connect</span>
-                <ChevronRight className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
-              </button>
-            </motion.div>
+          {/* Contact button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="mt-4 flex justify-center"
+          >
+            <button
+              onClick={scrollToContact}
+              className="group bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white py-1 px-4 rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <MessageCircle className="mr-2 h-5 w-5" />
+              <span>Let's Connect</span>
+              <ChevronRight className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
+            </button>
           </motion.div>
         </div>
-      </div>
+      ) : (
+        // Desktop View - Keep Existing
+        <div className="container mx-auto px-5 md:px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-6"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-navy-blue dark:text-white inline-block relative">
+              About Me
+            </h2>
+            <p className="mt-4 text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
+              Machine Learning Engineer with a passion for transforming complex data into intelligent solutions
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center max-w-6xl mx-auto">
+            {/* Left side: Profile and 3D elements */}
+            <motion.div variants={cardVariants} initial="hidden" animate={controls} className="relative">
+              <div className="relative mx-auto md:mx-0 max-w-md">
+                {/* Main profile image with 3D effect */}
+                <div className="relative h-[100px] md:h-[300px] rounded-2xl overflow-hidden shadow-2xl transform perspective-1000 hover:rotate-y-5 transition-transform duration-700">
+                  <Image
+                    src="/images/avatar.png"
+                    alt="Rushir Bhavsar"
+                    fill
+                    className="object-cover object-center"
+                    priority
+                  />
+
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-blue/80 via-navy-blue/40 to-transparent"></div>
+
+                  {/* Floating tech icons */}
+                  <motion.div
+                    className="absolute top-6 right-6"
+                    animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }}
+                    transition={{ repeat: Number.POSITIVE_INFINITY, duration: 4, ease: "easeInOut" }}
+                  >
+                    <div className="bg-white dark:bg-navy-blue/80 p-2 rounded-full shadow-lg">
+                      <Brain className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    className="absolute bottom-20 left-6"
+                    animate={{ y: [0, 10, 0], rotate: [0, -5, 0] }}
+                    transition={{ repeat: Number.POSITIVE_INFINITY, duration: 5, ease: "easeInOut", delay: 0.5 }}
+                  >
+                    <div className="bg-white dark:bg-navy-blue/80 p-2 rounded-full shadow-lg">
+                      <Database className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    className="absolute top-1/3 left-6"
+                    animate={{ y: [0, 8, 0], rotate: [0, 3, 0] }}
+                    transition={{ repeat: Number.POSITIVE_INFINITY, duration: 4.5, ease: "easeInOut", delay: 1 }}
+                  >
+                    <div className="bg-white dark:bg-navy-blue/80 p-2 rounded-full shadow-lg">
+                      <Cpu className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                    </div>
+                  </motion.div>
+
+                  {/* Name and title overlay */}
+                  <div className="absolute bottom-0 left-0 w-full p-6 z-10">
+                    <h3 className="text-white text-2xl font-bold">Rushir Bhavsar</h3>
+                    <p className="text-blue-200 text-sm">Machine Learning Engineer</p>
+                  </div>
+                </div>
+
+                {/* Stats cards with 3D effect */}
+                <div className="grid grid-cols-3 gap-3 mt-4">
+                  <motion.div
+                    className="bg-white dark:bg-navy-blue/80 rounded-xl p-3 shadow-lg transform hover:scale-105 transition-transform"
+                    variants={cardVariants}
+                    initial="hidden"
+                    animate={controls}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <div className="text-blue-600 dark:text-blue-400 text-xl font-bold">1+</div>
+                    <div className="text-navy-blue dark:text-white text-xs font-medium">Years Exp</div>
+                  </motion.div>
+
+                  <motion.div
+                    className="bg-white dark:bg-navy-blue/80 rounded-xl p-3 shadow-lg transform hover:scale-105 transition-transform"
+                    variants={cardVariants}
+                    initial="hidden"
+                    animate={controls}
+                    transition={{ delay: 0.3 }}
+                  >
+                    <div className="text-blue-600 dark:text-blue-400 text-xl font-bold">5+</div>
+                    <div className="text-navy-blue dark:text-white text-xs font-medium">Projects</div>
+                  </motion.div>
+
+                  <motion.div
+                    className="bg-white dark:bg-navy-blue/80 rounded-xl p-3 shadow-lg transform hover:scale-105 transition-transform"
+                    variants={cardVariants}
+                    initial="hidden"
+                    animate={controls}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <div className="text-blue-600 dark:text-blue-400 text-xl font-bold">3</div>
+                    <div className="text-navy-blue dark:text-white text-xs font-medium">Publications</div>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right side: Content tabs */}
+            <motion.div variants={containerVariants} initial="hidden" animate={controls} className="flex flex-col">
+              {/* Tab navigation */}
+              <div className="flex mb-6 bg-gray-100 dark:bg-navy-blue/40 p-1 rounded-lg shadow-inner">
+                {Object.keys(tabContent).map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-200 ${
+                      activeTab === tab
+                        ? "bg-white dark:bg-navy-blue shadow-md text-blue-600 dark:text-blue-400"
+                        : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-300"
+                    }`}
+                  >
+                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  </button>
+                ))}
+              </div>
+
+              {/* Tab content with animations */}
+              <div className="bg-white dark:bg-navy-blue/30 rounded-2xl p-4 shadow-xl min-h-[180px] relative overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeTab}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="h-full"
+                  >
+                    <div className="flex items-start mb-2">
+                      <div className="p-3 bg-blue-50 dark:bg-navy-blue/50 rounded-xl mr-4">
+                        {tabContent[activeTab].icon}
+                      </div>
+                      <h3 className="text-xl font-bold text-navy-blue dark:text-white mt-2">
+                        {tabContent[activeTab].title}
+                      </h3>
+                    </div>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{tabContent[activeTab].content}</p>
+
+                    {/* Decorative elements */}
+                    <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-100/50 dark:bg-blue-900/20 rounded-full blur-2xl"></div>
+                    <div className="absolute -top-6 -left-6 w-24 h-24 bg-blue-100/30 dark:bg-blue-900/10 rounded-full blur-xl"></div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Skills highlights */}
+              <motion.div variants={cardVariants} className="mt-6 grid grid-cols-2 gap-3">
+                <div className="bg-white dark:bg-navy-blue/30 p-3 rounded-xl shadow-md">
+                  <div className="flex items-center mb-2">
+                    <Network className="w-5 h-5 text-blue-600 dark:text-blue-400 mr-2" />
+                    <h4 className="font-small text-navy-blue dark:text-white">Neural Networks</h4>
+                  </div>
+                  <div className="h-2 bg-gray-200 dark:bg-navy-blue/50 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-blue-600 to-blue-400 w-[85%] rounded-full"></div>
+                  </div>
+                </div>
+
+                <div className="bg-white dark:bg-navy-blue/30 p-3 rounded-xl shadow-md">
+                  <div className="flex items-center mb-2">
+                    <Database className="w-5 h-5 text-blue-600 dark:text-blue-400 mr-2" />
+                    <h4 className="font-small text-navy-blue dark:text-white">Data Engineering</h4>
+                  </div>
+                  <div className="h-2 bg-gray-200 dark:bg-navy-blue/50 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-blue-600 to-blue-400 w-[75%] rounded-full"></div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Contact button */}
+              <motion.div variants={cardVariants} className="mt-8">
+                <button
+                  onClick={scrollToContact}
+                  className="group bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white py-3 px-6 rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 w-full md:w-auto"
+                >
+                  <MessageCircle className="mr-2 h-5 w-5" />
+                  <span>Let's Connect</span>
+                  <ChevronRight className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
+                </button>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

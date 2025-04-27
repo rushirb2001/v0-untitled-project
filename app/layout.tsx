@@ -27,6 +27,15 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-5W5MC5TFE6"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5W5MC5TFE6');
+      </script>
       <body>
         <FontLoader />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
