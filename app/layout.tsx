@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import ScrollObserver from "@/components/scroll-observer"
 import FontLoader from "@/components/font-loader"
 import ThemeTransitionOverlay from "@/components/theme-transition-overlay"
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Rushir Bhavsar - Portfolio",
@@ -20,14 +21,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-5W5MC5TFE6"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-5W5MC5TFE6');
-        </script>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-5W5MC5TFE6"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-5W5MC5TFE6');
+          `}
+        </Script>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
