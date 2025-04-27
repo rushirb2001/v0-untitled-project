@@ -281,7 +281,7 @@ export default function Home() {
         <div className={`absolute inset-0 z-0 ${resolvedTheme === "dark" ? "bg-navy-dark" : "bg-slate-50"}`}></div>
 
         {/* Hero Content */}
-        <div className="container relative z-10 px-4 mx-auto flex flex-1 flex-col md:flex-row items-center justify-center h-full py-12">
+        <div className="container relative z-10 px-4 mx-auto flex flex-1 flex-col md:flex-row items-center justify-center h-full py-12 md:py-12 pb-20 md:pb-12">
           {/* Left Side: Text */}
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center md:pr-8 pl-0 md:pl-40 order-2 md:order-1">
             {/* Name */}
@@ -431,16 +431,24 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Scrolling indicator */}
+        {/* Scrolling indicator - Updated for mobile */}
         <motion.div
-          className="absolute bottom-24 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
+          className="absolute bottom-12 md:bottom-24 left-0 right-0 mx-auto w-full flex flex-col justify-center items-center z-20"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.4, duration: 0.8 }}
         >
-          <span className="text-sm text-gray-700 dark:text-blue-100 mb-2">Scroll to explore</span>
+          {/* Text label - different for mobile and desktop */}
+          <div className="text-center mb-1 md:mb-2">
+            <span className="text-xs md:text-sm text-gray-700 dark:text-blue-100">
+              <span className="hidden md:inline">Scroll to explore</span>
+              <pre className="inline md:hidden">  Swipe up      to explore</pre>
+            </span>
+          </div>
+
+          {/* Desktop scroll indicator */}
           <motion.div
-            className="w-6 h-10 border-2 border-gray-700/70 dark:border-blue-100/70 rounded-full flex justify-center p-1"
+            className="hidden md:flex w-6 h-10 border-2 border-gray-700/70 dark:border-blue-100/70 rounded-full justify-center p-1 mt-2"
             animate={{ y: [0, 5, 0] }}
             transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
           >
@@ -449,6 +457,31 @@ export default function Home() {
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
             />
+          </motion.div>
+
+          {/* Mobile swipe-up indicator */}
+          <motion.div
+            className="flex md:hidden absolute flex-col items-center justify-center"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+          >
+            <motion.div
+              className="w-8 h-12 flex flex-col items-center justify-center"
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
+            >
+              <svg width="24" height="36" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 6L12 30M12 6L6 12M12 6L18 12"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-gray-700 dark:text-blue-100"
+                />
+              </svg>
+            </motion.div>
           </motion.div>
         </motion.div>
 

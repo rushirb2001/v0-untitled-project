@@ -57,10 +57,12 @@
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.6",
-    "zod": "^3.24.1",
+    "zod": "latest",
     "@emotion/is-prop-valid": "latest",
     "framer-motion": "latest",
-    "react-intersection-observer": "latest"
+    "nodemailer": "latest",
+    "react-intersection-observer": "latest",
+    "@emailjs/browser": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",

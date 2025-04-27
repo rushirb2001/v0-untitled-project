@@ -2,11 +2,12 @@
 
 import type React from "react"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useActionState } from "react"
 import { motion } from "framer-motion"
 import { Send, Mail, Github, Linkedin } from "lucide-react"
 import { useInView } from "react-intersection-observer"
 import Image from "next/image"
+import { sendEmailWithEmailJS, type FormState } from "@/actions/send-email-emailjs"
 
 export default function ContactSection() {
   const [name, setName] = useState("")
@@ -14,13 +15,16 @@ export default function ContactSection() {
   const [message, setMessage] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [error, setError] = useState("")
   const [isMobile, setIsMobile] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
   const { ref, inView } = useInView({
     threshold: 0.3,
     triggerOnce: false,
   })
+
+  // Form state using React's useActionState hook
+  const initialState: FormState = { errors: {} }
+  const [state, formAction] = useActionState(sendEmailWithEmailJS, initialState)
 
   // Check if mobile
   useEffect(() => {
@@ -33,20 +37,47 @@ export default function ContactSection() {
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setError("")
-
-    try {
-      // Simulate form submission
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      setIsSubmitted(true)
+  // Reset form after successful submission
+  useEffect(() => {
+    if (state?.success) {
       setName("")
       setEmail("")
       setMessage("")
-    } catch (err) {
-      setError("Something went wrong. Please try again.")
+      setIsSubmitted(true)
+    }
+  }, [state?.success])
+
+  // Custom form handler to send email via EmailJS
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    try {
+      // Load the EmailJS SDK dynamically
+      const emailjs = await import("@emailjs/browser")
+
+      // Initialize EmailJS with your user ID
+      emailjs.init("vCNvTU_mqabgUgPcO")
+
+      // Prepare template parameters
+      const templateParams = {
+        from_name: name,
+        from_email: email,
+        message: message,
+      }
+
+      // Send the email using EmailJS
+      // Using the correct service ID "service_akeeivv" instead of the incorrect one
+      await emailjs.send("service_akeeivv", "template_cyytr4f", templateParams)
+
+      // Set form as submitted
+      setName("")
+      setEmail("")
+      setMessage("")
+      setIsSubmitted(true)
+    } catch (error) {
+      console.error("Error sending email:", error)
+      alert("Failed to send email. Please try again later.")
     } finally {
       setIsSubmitting(false)
     }
@@ -179,7 +210,7 @@ export default function ContactSection() {
                   </button>
                 </motion.div>
               ) : (
-                <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Name
@@ -187,12 +218,16 @@ export default function ContactSection() {
                     <input
                       type="text"
                       id="name"
+                      name="name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
-                      className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-[#002366] dark:focus:ring-[#B9D9EB] bg-white dark:bg-[#060F20]/50 text-gray-900 dark:text-white"
+                      className={`w-full px-3 py-2 rounded-md border ${
+                        state?.errors?.name ? "border-red-500" : "border-gray-300 dark:border-gray-700"
+                      } focus:outline-none focus:ring-1 focus:ring-[#002366] dark:focus:ring-[#B9D9EB] bg-white dark:bg-[#060F20]/50 text-gray-900 dark:text-white`}
                       placeholder="Your name"
                     />
+                    {state?.errors?.name && <p className="mt-1 text-xs text-red-500">{state.errors.name[0]}</p>}
                   </div>
 
                   <div>
@@ -202,12 +237,16 @@ export default function ContactSection() {
                     <input
                       type="email"
                       id="email"
+                      name="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-[#002366] dark:focus:ring-[#B9D9EB] bg-white dark:bg-[#060F20]/50 text-gray-900 dark:text-white"
+                      className={`w-full px-3 py-2 rounded-md border ${
+                        state?.errors?.email ? "border-red-500" : "border-gray-300 dark:border-gray-700"
+                      } focus:outline-none focus:ring-1 focus:ring-[#002366] dark:focus:ring-[#B9D9EB] bg-white dark:bg-[#060F20]/50 text-gray-900 dark:text-white`}
                       placeholder="your.email@example.com"
                     />
+                    {state?.errors?.email && <p className="mt-1 text-xs text-red-500">{state.errors.email[0]}</p>}
                   </div>
 
                   <div>
@@ -219,18 +258,22 @@ export default function ContactSection() {
                     </label>
                     <textarea
                       id="message"
+                      name="message"
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       required
                       rows={5}
-                      className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-[#002366] dark:focus:ring-[#B9D9EB] bg-white dark:bg-[#060F20]/50 text-gray-900 dark:text-white resize-none"
+                      className={`w-full px-3 py-2 rounded-md border ${
+                        state?.errors?.message ? "border-red-500" : "border-gray-300 dark:border-gray-700"
+                      } focus:outline-none focus:ring-1 focus:ring-[#002366] dark:focus:ring-[#B9D9EB] bg-white dark:bg-[#060F20]/50 text-gray-900 dark:text-white resize-none`}
                       placeholder="Your message here..."
                     ></textarea>
+                    {state?.errors?.message && <p className="mt-1 text-xs text-red-500">{state.errors.message[0]}</p>}
                   </div>
 
-                  {error && (
+                  {state?.errors?._form && (
                     <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 p-3 rounded-md text-sm">
-                      {error}
+                      {state.errors._form[0]}
                     </div>
                   )}
 
@@ -344,46 +387,58 @@ export default function ContactSection() {
                   </button>
                 </motion.div>
               ) : (
-                <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
+                <form onSubmit={handleSubmit} className="space-y-3">
                   <div>
                     <input
                       type="text"
-                      id="name"
+                      id="name-mobile"
+                      name="name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
-                      className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-[#002366] dark:focus:ring-[#B9D9EB] bg-white dark:bg-[#060F20]/50 text-gray-900 dark:text-white text-sm"
+                      className={`w-full px-3 py-2 rounded-md border ${
+                        state?.errors?.name ? "border-red-500" : "border-gray-300 dark:border-gray-700"
+                      } focus:outline-none focus:ring-1 focus:ring-[#002366] dark:focus:ring-[#B9D9EB] bg-white dark:bg-[#060F20]/50 text-gray-900 dark:text-white text-sm`}
                       placeholder="Your name"
                     />
+                    {state?.errors?.name && <p className="mt-1 text-xs text-red-500">{state.errors.name[0]}</p>}
                   </div>
 
                   <div>
                     <input
                       type="email"
-                      id="email"
+                      id="email-mobile"
+                      name="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-[#002366] dark:focus:ring-[#B9D9EB] bg-white dark:bg-[#060F20]/50 text-gray-900 dark:text-white text-sm"
+                      className={`w-full px-3 py-2 rounded-md border ${
+                        state?.errors?.email ? "border-red-500" : "border-gray-300 dark:border-gray-700"
+                      } focus:outline-none focus:ring-1 focus:ring-[#002366] dark:focus:ring-[#B9D9EB] bg-white dark:bg-[#060F20]/50 text-gray-900 dark:text-white text-sm`}
                       placeholder="Your email address"
                     />
+                    {state?.errors?.email && <p className="mt-1 text-xs text-red-500">{state.errors.email[0]}</p>}
                   </div>
 
                   <div>
                     <textarea
-                      id="message"
+                      id="message-mobile"
+                      name="message"
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       required
                       rows={3}
-                      className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-[#002366] dark:focus:ring-[#B9D9EB] bg-white dark:bg-[#060F20]/50 text-gray-900 dark:text-white resize-none text-sm"
+                      className={`w-full px-3 py-2 rounded-md border ${
+                        state?.errors?.message ? "border-red-500" : "border-gray-300 dark:border-gray-700"
+                      } focus:outline-none focus:ring-1 focus:ring-[#002366] dark:focus:ring-[#B9D9EB] bg-white dark:bg-[#060F20]/50 text-gray-900 dark:text-white resize-none text-sm`}
                       placeholder="Your message here..."
                     ></textarea>
+                    {state?.errors?.message && <p className="mt-1 text-xs text-red-500">{state.errors.message[0]}</p>}
                   </div>
 
-                  {error && (
+                  {state?.errors?._form && (
                     <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 p-2 rounded-md text-xs">
-                      {error}
+                      {state.errors._form[0]}
                     </div>
                   )}
 
