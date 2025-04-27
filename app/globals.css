@@ -8,10 +8,6 @@ body {
 }
 
 /* Add a class to apply the Funnel Display font */
-/*body {
-  font-family: "Funnel Display", "Fira Sans", sans-serif;
-  @apply bg-background text-foreground;
-}*/
 body {
   font-family: "Funnel Display", "Fira Sans", sans-serif;
   @apply bg-background text-foreground;
@@ -210,6 +206,33 @@ body {
   pointer-events: none;
 }
 
+/* Education section dot pattern */
+.education-dot-pattern {
+  background-image: radial-gradient(circle, rgba(0, 35, 102, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: 0 0;
+}
+
+.dark .education-dot-pattern {
+  background-image: radial-gradient(circle, rgba(185, 217, 235, 0.08) 1px, transparent 1px);
+}
+
+.education-grid-pattern {
+  background-image: linear-gradient(to right, rgba(0, 35, 102, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 35, 102, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.dark .education-grid-pattern {
+  background-image: linear-gradient(to right, rgba(185, 217, 235, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(185, 217, 235, 0.1) 1px, transparent 1px);
+}
+
+/* Subtle paper texture for education section */
+.education-paper-texture {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23002366' fill-opacity='0.03'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
 /* Update the energy flow animation to ensure it works consistently */
 @keyframes energyFlow {
   0% {
@@ -315,8 +338,61 @@ section[id] {
   border-radius: 2px;
   transform: translateX(-50%);
   z-index: 0;
+  overflow: hidden;
 }
 
+/* NEW: Timeline flowing light animation */
+/* Timeline line glow animation - Ported from Experience section */
+.timeline-line-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, transparent, #002366, #b9d9eb, transparent);
+  animation: timeline-flow 4s linear infinite;
+  transform: translateY(-100%);
+}
+
+.dark .timeline-line-glow {
+  background: linear-gradient(to top, transparent, #002366, #b9d9eb, transparent);
+  opacity: 0.8;
+}
+
+/* NEW: Timeline pulse nodes */
+.timeline-pulse-node {
+  animation: pulse-node 3s ease-in-out infinite;
+  box-shadow: 0 0 0 rgba(0, 35, 102, 0.4);
+}
+
+@keyframes pulse-node {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 35, 102, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(0, 35, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 35, 102, 0);
+  }
+}
+
+.dark .timeline-pulse-node {
+  animation: pulse-node-dark 3s ease-in-out infinite;
+}
+
+@keyframes pulse-node-dark {
+  0% {
+    box-shadow: 0 0 0 0 rgba(185, 217, 235, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(185, 217, 235, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(185, 217, 235, 0);
+  }
+}
+
+/* NEW: Floating particles animation */
+/* NEW: Light beam animation */
 .education-event {
   position: relative;
   width: 50%;
@@ -335,21 +411,60 @@ section[id] {
   padding: 0 0 60px 32px;
 }
 
-.education-dot {
+/* NEW: Enhanced education dot with glow */
+.education-dot-container {
   position: absolute;
   right: -12px;
   top: 40px;
   width: 24px;
   height: 24px;
+  z-index: 5;
+}
+
+.education-event.right .education-dot-container {
+  left: -12px;
+  right: auto;
+}
+
+.education-dot-glow {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 35, 102, 0.3) 0%, rgba(0, 35, 102, 0) 70%);
+  animation: dot-glow 4s ease-in-out infinite;
+}
+
+.dark .education-dot-glow {
+  background: radial-gradient(circle, rgba(185, 217, 235, 0.3) 0%, rgba(185, 217, 235, 0) 70%);
+}
+
+@keyframes dot-glow {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+.education-dot {
+  position: absolute;
+  inset: 0;
   background: #fff;
   border: 4px solid #002366;
   border-radius: 50%;
   z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.education-event.right .education-dot {
-  left: -12px;
-  right: auto;
+.dark .education-dot {
+  background: #060f20;
+  border-color: #b9d9eb;
 }
 
 .education-date {
@@ -373,7 +488,41 @@ section[id] {
   right: auto;
 }
 
-/* Flip card effect (unchanged) */
+/* NEW: Logo glow effect */
+.education-logo-glow {
+  animation: logo-glow 3s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes logo-glow {
+  0%,
+  100% {
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(0, 35, 102, 0);
+  }
+  50% {
+    opacity: 0.3;
+    box-shadow: 0 0 10px rgba(0, 35, 102, 0.3);
+  }
+}
+
+.dark .education-logo-glow {
+  animation: logo-glow-dark 3s ease-in-out infinite;
+}
+
+@keyframes logo-glow-dark {
+  0%,
+  100% {
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(185, 217, 235, 0);
+  }
+  50% {
+    opacity: 0.3;
+    box-shadow: 0 0 10px rgba(185, 217, 235, 0.3);
+  }
+}
+
+/* Flip card effect (enhanced) */
 .flip-card {
   perspective: 1200px;
   height: 220px;
@@ -437,11 +586,86 @@ section[id] {
   width: 2px;
   background: linear-gradient(to bottom, #002366, #b9d9eb);
   z-index: 2;
+  overflow: hidden;
+}
+
+/* NEW: Connector glow effect */
+.education-connector-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 35, 102, 0) 0%, rgba(0, 35, 102, 0.7) 50%, rgba(0, 35, 102, 0) 100%);
+  animation: connector-glow 2s ease-in-out infinite;
+}
+
+.dark .education-connector-glow {
+  background: linear-gradient(
+    to bottom,
+    rgba(185, 217, 235, 0) 0%,
+    rgba(185, 217, 235, 0.7) 50%,
+    rgba(185, 217, 235, 0) 100%
+  );
+}
+
+@keyframes connector-glow {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(-100%);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(100%);
+  }
 }
 
 .dark .education-connector {
   background: linear-gradient(to bottom, #002366, #b9d9eb);
   z-index: 2;
+}
+
+/* NEW: Icon glow effect */
+.education-icon-glow {
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 35, 102, 0.3) 0%, rgba(0, 35, 102, 0) 70%);
+  animation: icon-glow 4s ease-in-out infinite;
+}
+
+.dark .education-icon-glow {
+  background: radial-gradient(circle, rgba(185, 217, 235, 0.3) 0%, rgba(185, 217, 235, 0) 70%);
+}
+
+@keyframes icon-glow {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.3);
+  }
+}
+
+/* Card accent animation */
+.education-card-accent {
+  background: linear-gradient(to right, #002366, #1f305e, #002366);
+  background-size: 200% 100%;
+  animation: card-accent 3s ease-in-out infinite;
+}
+
+.dark .education-card-accent {
+  background: linear-gradient(to right, #b9d9eb, #1f305e, #b9d9eb);
+  background-size: 200% 100%;
+}
+
+@keyframes card-accent {
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
 }
 
 /* Add this media query for extra small devices */
@@ -773,6 +997,26 @@ section[id] {
   background: linear-gradient(to bottom, #060f20 0%, #002366 100%);
   z-index: 1;
   transform: translateX(-50%);
+  overflow: hidden;
+}
+
+/* Timeline line glow animation */
+.timeline-line-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, transparent, #002366, #b9d9eb, transparent);
+  animation: timeline-flow 4s linear infinite;
+  transform: translateY(-100%);
+}
+
+@keyframes timeline-flow {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
 }
 
 .timeline-item-modern {
@@ -793,6 +1037,7 @@ section[id] {
   text-align: left;
 }
 
+/* Active and inactive card styles */
 .timeline-card-modern {
   background: white;
   border-radius: 12px;
@@ -814,12 +1059,35 @@ section[id] {
   margin-left: 20px;
 }
 
+/* Active card - zoomed but not bouncing */
+.active-card {
+  border-color: #002366;
+  box-shadow: 0 6px 16px rgba(0, 35, 102, 0.15);
+  transform: scale(1.1);
+}
+
+/* Inactive card - smaller and bouncing */
+.inactive-card {
+  transform: scale(0.95);
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+@keyframes bounce-subtle {
+  0%,
+  100% {
+    transform: scale(0.95) translateY(0);
+  }
+  50% {
+    transform: scale(0.95) translateY(-5px);
+  }
+}
+
 .timeline-item-modern.active .timeline-card-modern {
   border-color: #002366;
   box-shadow: 0 6px 16px rgba(0, 35, 102, 0.15);
-  transform: translateY(-3px);
 }
 
+/* Timeline dot with glow effect */
 .timeline-dot-modern {
   position: absolute;
   top: 50%;
@@ -850,10 +1118,17 @@ section[id] {
   background: #002366;
 }
 
-.timeline-item-modern.active .timeline-dot-modern {
+/* Active dot with glow effect */
+.timeline-dot-modern.active {
   background: #002366;
   transform: translateY(-50%) scale(1.15);
-  box-shadow: 0 0 0 4px rgba(0, 35, 102, 0.3), 0 0 15px rgba(0, 35, 102, 0.5);
+  box-shadow: 0 0 15px rgba(0, 35, 102, 0.7), 0 0 5px rgba(0, 35, 102, 0.5);
+}
+
+/* Dark theme active dot */
+.dark .timeline-dot-modern.active {
+  background: #b9d9eb;
+  box-shadow: 0 0 15px rgba(185, 217, 235, 0.7), 0 0 5px rgba(185, 217, 235, 0.5);
 }
 
 .timeline-date-modern {
@@ -896,6 +1171,101 @@ section[id] {
 
 .dark .timeline-date-modern {
   color: #b9d9eb;
+}
+
+/* Technology pill styles */
+.tech-pill {
+  background: linear-gradient(to right, #eef2ff, #e0e7ff);
+  color: #4f46e5;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 4px;
+  margin-right: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.tech-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dark .tech-pill {
+  background: linear-gradient(to right, rgba(79, 70, 229, 0.2), rgba(99, 102, 241, 0.3));
+  color: #a5b4fc;
+}
+
+/* Responsibility card styles */
+.responsibility-card {
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.responsibility-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dark .responsibility-card {
+  background-color: rgba(31, 48, 94, 0.3);
+}
+
+/* Metric badge styles */
+.metric-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: linear-gradient(to right, #3b82f6, #60a5fa);
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.dark .metric-badge {
+  background: linear-gradient(to right, #60a5fa, #93c5fd);
+  color: #1e293b;
+}
+
+/* Mobile responsibility card styles */
+.responsibility-card-mobile {
+  background-color: #f8fafc;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.dark .responsibility-card-mobile {
+  background-color: rgba(31, 48, 94, 0.3);
+}
+
+.metric-badge-mobile {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: linear-gradient(to right, #3b82f6, #60a5fa);
+  color: white;
+  font-size: 0.55rem;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.dark .metric-badge-mobile {
+  background: linear-gradient(to right, #60a5fa, #93c5fd);
+  color: #1e293b;
 }
 
 /* Mobile adjustments */
@@ -1083,6 +1453,59 @@ section[id] {
   animation: dash 2s ease-in-out forwards;
 }
 
+/* NEW: Wavy timeline flow animation */
+.wavy-timeline-flow {
+  stroke: rgba(185, 217, 235, 0.4);
+  stroke-dasharray: 30, 200;
+  stroke-dashoffset: 0;
+  animation: wavy-flow 8s linear infinite;
+}
+
+.dark .wavy-timeline-flow {
+  stroke: rgba(185, 217, 235, 0.4);
+}
+
+@keyframes wavy-flow {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* NEW: Timeline particle animation */
+.timeline-particle {
+  animation: timeline-particle 8s ease-in-out infinite;
+}
+
+@keyframes timeline-particle {
+  0% {
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0) scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  40% {
+    left: calc(50% + 3px);
+  }
+  60% {
+    left: calc(50% - 3px);
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, 0) scale(0.5);
+    opacity: 0;
+  }
+}
+
 @keyframes dash {
   to {
     stroke-dashoffset: 0;
@@ -1113,7 +1536,7 @@ section[id] {
 }
 
 .dark .education-card {
-  background-color: rgba(6, 15, 32, 1);
+  background-color: rgba(6, 15, 32, 0.8);
   border-color: rgba(0, 35, 102, 0.6);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   z-index: 10; /* Higher z-index to stay above timeline */
@@ -1190,6 +1613,65 @@ section[id] {
   stroke: url(#timeline-gradient);
   stroke-width: 4;
   filter: drop-shadow(0 0 8px rgba(185, 217, 235, 0.6));
+}
+
+/* Timeline flow animation */
+@keyframes timeline-flow {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* Mobile section adjustments for proper viewport fitting */
+@media (max-width: 768px) {
+  section[id] {
+    min-height: calc(100vh - 56px); /* Adjust for navbar height */
+    scroll-margin-top: 56px;
+  }
+
+  /* Ensure content doesn't overflow */
+  .overflow-y-auto {
+    max-height: calc(100vh - 120px);
+  }
+
+  /* Adjust vertical spacing for mobile */
+  #about,
+  #skills,
+  #education,
+  #experience,
+  #publications,
+  #contact {
+    padding-top: 60px;
+  }
+}
+
+/* Mobile-specific styles for reduced whitespace */
+@media (max-width: 768px) {
+  /* Reduce whitespace between navbar and section titles */
+  section[id] {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Section title adjustments */
+  h2.text-3xl,
+  h2.text-2xl {
+    margin-top: 0 !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Adjust scroll margin to account for navbar */
+  section[id] {
+    scroll-margin-top: 56px;
+  }
+
+  /* Ensure content doesn't overflow */
+  .overflow-y-auto {
+    max-height: calc(100vh - 100px);
+  }
 }
 
 /* Journey path animation for experience section */
@@ -1383,6 +1865,10 @@ section[id] {
   }
 
   .skill-wheel-highlight {
+    box-shadow: 0 0 0 2px rgba(0, 35, 102, 0.21, 0.36, 1);
+  }
+
+  .skill-wheel-highlight {
     box-shadow: 0 0 0 2px rgba(0, 35, 102, 0.2) inset;
   }
 }
@@ -1498,4 +1984,1052 @@ section[id] {
   .overflow-y-auto {
     max-height: calc(100vh - 100px);
   }
+}
+
+/* Tech grid styles */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+}
+
+.tech-grid .tech-pill {
+  margin: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+}
+
+/* Responsibility text truncation */
+.responsibility-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.responsibility-text.expanded {
+  -webkit-line-clamp: unset;
+}
+
+/* Update the timeline-flow animation to flow from bottom to top */
+@keyframes timeline-flow {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* Add these new styles for the experience section enhancements */
+
+/* Responsibility text truncation with improved styling */
+.responsibility-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.responsibility-text.expanded {
+  -webkit-line-clamp: unset;
+}
+
+/* Enhanced tech grid styles with hover effects */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+}
+
+.tech-grid .tech-pill {
+  margin: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.tech-grid .tech-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 35, 102, 0.15);
+}
+
+.dark .tech-grid .tech-pill:hover {
+  background: rgba(99, 102, 241, 0.4);
+}
+
+/* Enhanced card animations */
+.responsibility-card {
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.responsibility-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dark .responsibility-card {
+  background-color: rgba(31, 48, 94, 0.3);
+}
+
+.dark .responsibility-card:hover {
+  background-color: rgba(31, 48, 94, 0.5);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Page load animations for experience section */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-slide-up {
+  animation: fadeSlideUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.fade-slide-up-delay-1 {
+  animation-delay: 0.2s;
+}
+
+.fade-slide-up-delay-2 {
+  animation-delay: 0.4s;
+}
+
+.fade-slide-up-delay-3 {
+  animation-delay: 0.6s;
+}
+
+/* Dot grid pattern for decorative elements */
+.dot-grid {
+  position: relative;
+}
+
+.dot-grid::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 60px;
+  height: 10px;
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+  background-size: 6px 6px;
+  opacity: 0.5;
+}
+
+/* Vertical divider with gradient and dots */
+.vertical-divider {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  height: 80%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.3), transparent);
+}
+
+.vertical-divider::before,
+.vertical-divider::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: rgba(59, 130, 246, 0.5);
+}
+
+.vertical-divider::before {
+  top: 20%;
+}
+
+.vertical-divider::after {
+  bottom: 20%;
+}
+
+/* Update the timeline-flow animation to flow from bottom to top */
+@keyframes timeline-flow {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* Enhanced experience card with hover effects */
+.experience-content-item {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.experience-content-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 35, 102, 0.1);
+}
+
+.dark .experience-content-item:hover {
+  box-shadow: 0 8px 30px rgba(0, 35, 102, 0.2);
+}
+
+/* Enhanced technology section styling */
+.tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* Updated tech pill styles for a more attractive look */
+.tech-pill {
+  background: linear-gradient(to right, #f0f4ff, #e0e7ff);
+  color: #4338ca;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  border: 1px solid rgba(79, 70, 229, 0.1);
+}
+
+.tech-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to right, #e0e7ff, #c7d2fe);
+}
+
+.dark .tech-pill {
+  background: linear-gradient(to right, rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.6));
+  color: #93c5fd;
+  border: 1px solid rgba(147, 197, 253, 0.2);
+}
+
+.dark .tech-pill:hover {
+  background: linear-gradient(to right, rgba(30, 41, 59, 0.9), rgba(30, 41, 59, 0.7));
+  border-color: rgba(147, 197, 253, 0.3);
+}
+
+/* Experience title area styling */
+.experience-title-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px;
+  background: linear-gradient(to right, #002366, #1f305e);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .experience-title-area {
+  background: linear-gradient(to right, #1f305e, #060f20);
+}
+
+.experience-meta-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #b9d9eb;
+  margin-bottom: 4px;
+}
+
+.experience-meta-item svg {
+  margin-left: 6px;
+}
+
+/* Tech section container */
+.tech-section-container {
+  background-color: rgba(248, 250, 252, 0.8);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.tech-section-container:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.dark .tech-section-container {
+  background-color: rgba(15, 23, 42, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.dark .tech-section-container:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Tech section header */
+.tech-section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(203, 213, 225, 0.5);
+}
+
+.dark .tech-section-header {
+  border-bottom-color: rgba(51, 65, 85, 0.5);
+}
+
+.tech-section-header svg {
+  margin-right: 8px;
+  color: #3b82f6;
+}
+
+.dark .tech-section-header svg {
+  color: #60a5fa;
+}
+
+/* Add shine animation for nav links */
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shine {
+  animation: shine 1.5s ease-in-out infinite;
+}
+
+/* Add these animations to your globals.css */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-10px) translateX(10px);
+  }
+  50% {
+    transform: translateY(0) translateX(20px);
+  }
+  75% {
+    transform: translateY(10px) translateX(10px);
+  }
+}
+
+/* Skill card hover effect */
+.skill-card-hover {
+  transition: all 0.3s ease;
+}
+
+.skill-card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Skill category tab animations */
+.category-tab {
+  position: relative;
+  overflow: hidden;
+}
+
+.category-tab::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.category-tab:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.category-tab.active::after {
+  transform: scaleX(1);
+}
+
+/* Card flip styles for skills section */
+.flip-card {
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.flip-card-front {
+  transform: rotateY(0deg);
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Mobile flip card styles */
+.flip-card-mobile {
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.flip-card-inner-mobile {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner-mobile.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front-mobile,
+.flip-card-back-mobile {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front-mobile {
+  transform: rotateY(0deg);
+}
+
+.flip-card-back-mobile {
+  transform: rotateY(180deg);
+}
+
+/* Add these new animation keyframes for the education section */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.8s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.8s ease-out forwards;
+}
+
+/* Fix the education-event class to ensure proper visibility */
+.education-event {
+  position: relative;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0 32px 60px 0;
+  z-index: 2;
+  min-height: 220px;
+}
+
+/* Add these new animation keyframes for slide-out animations */
+@keyframes slide-out-left {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+}
+
+@keyframes slide-out-right {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+}
+
+.animate-slide-out-left {
+  animation: slide-out-left 0.8s ease-out forwards;
+}
+
+.animate-slide-out-right {
+  animation: slide-out-right 0.8s ease-out forwards;
+}
+
+/* Add these styles for section exit animations */
+.section-exited .education-card {
+  animation: card-exit 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes card-exit {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+/* Experience section exit animations */
+.experience-timeline-item-exit {
+  animation: experience-item-exit 0.6s ease-out forwards;
+}
+
+@keyframes experience-item-exit {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+/* Add these styles to ensure smooth transitions between sections */
+.section-transition {
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Enhance the timeline animations */
+.timeline-line-glow {
+  transition: opacity 0.5s ease-out;
+}
+
+.section-exited .timeline-line-glow {
+  opacity: 0;
+}
+
+/* Enhance the wavy timeline exit animation */
+.section-exited .wavy-timeline {
+  animation: wavy-timeline-exit 0.8s ease-out forwards;
+}
+
+@keyframes wavy-timeline-exit {
+  0% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 1000;
+  }
+}
+
+/* Timeline particle exit animation */
+.section-exited .timeline-particle {
+  animation: timeline-particle-exit 0.5s ease-out forwards;
+}
+
+@keyframes timeline-particle-exit {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Add these refined exit animation styles */
+
+/* Direction-specific exit animations */
+.exiting-right .education-event {
+  animation-name: slide-out-right !important;
+}
+
+.exiting-left .timeline-item-modern {
+  animation-name: slide-out-left !important;
+}
+
+/* Refined slide-out animations with improved timing */
+@keyframes slide-out-right {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+}
+
+@keyframes slide-out-left {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+}
+
+/* Ensure animations only run when explicitly triggered */
+.animate-slide-out-left {
+  animation: slide-out-left 0.8s cubic-bezier(0.5, 0, 0.75, 0) forwards;
+  pointer-events: none;
+}
+
+.animate-slide-out-right {
+  animation: slide-out-right 0.8s cubic-bezier(0.5, 0, 0.75, 0) forwards;
+  pointer-events: none;
+}
+
+/* Improve the intersection observer trigger threshold */
+.section-transition-threshold {
+  position: absolute;
+  height: 10px;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.section-transition-threshold-top {
+  top: 10%;
+}
+
+.section-transition-threshold-bottom {
+  bottom: 10%;
+}
+
+/* Ensure smooth transitions between sections */
+.section-transition {
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Prevent animations during normal scrolling */
+.scrolling-within {
+  animation: none !important;
+}
+
+/* Float animation for particles */
+@keyframes float-particle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Add these new animation styles for the skills section */
+
+/* Add float animation for the skills section background elements */
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(5px, -5px);
+  }
+  50% {
+    transform: translate(10px, 5px);
+  }
+  75% {
+    transform: translate(5px, 10px);
+  }
+}
+
+/* Enhanced skill card hover effect */
+.skill-card-hover {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.skill-card-hover:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Skill bar animation */
+@keyframes skill-bar-fill {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--skill-width);
+  }
+}
+
+/* Skill category tab animations */
+.category-tab {
+  position: relative;
+  overflow: hidden;
+}
+
+.category-tab::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.category-tab:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.category-tab.active::after {
+  transform: scaleX(1);
+}
+
+/* Gradient text animation */
+@keyframes gradient-text {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #002366, #1f305e, #b9d9eb, #1f305e, #002366);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-text 5s ease infinite;
+}
+
+/* Skill section background animation */
+.skills-bg-animate {
+  position: relative;
+  overflow: hidden;
+}
+
+.skills-bg-animate::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0, 35, 102, 0.1) 0%, rgba(0, 35, 102, 0) 70%);
+  animation: rotate 20s linear infinite;
+  z-index: -1;
+}
+
+.dark .skills-bg-animate::before {
+  background: radial-gradient(circle, rgba(185, 217, 235, 0.1) 0%, rgba(185, 217, 235, 0) 70%);
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Add these new animations for the education section background */
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(5px, -5px);
+  }
+  50% {
+    transform: translate(10px, 5px);
+  }
+  75% {
+    transform: translate(5px, 10px);
+  }
+}
+
+/* Education section background patterns */
+.education-bg-pattern {
+  background-image: radial-gradient(circle, rgba(0, 35, 102, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: 0 0;
+}
+
+.dark .education-bg-pattern {
+  background-image: radial-gradient(circle, rgba(185, 217, 235, 0.08) 1px, transparent 1px);
+}
+
+/* Experience section background patterns */
+.experience-bg-pattern {
+  background-image: radial-gradient(circle, rgba(0, 35, 102, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: 0 0;
+}
+
+.dark .experience-bg-pattern {
+  background-image: radial-gradient(circle, rgba(185, 217, 235, 0.08) 1px, transparent 1px);
+}
+
+/* Experience section grid pattern */
+.experience-grid-pattern {
+  background-image: linear-gradient(to right, rgba(0, 35, 102, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 35, 102, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.dark .experience-grid-pattern {
+  background-image: linear-gradient(to right, rgba(185, 217, 235, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(185, 217, 235, 0.05) 1px, transparent 1px);
+}
+
+/* Enhanced timeline animations */
+.timeline-line-modern {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #060f20 0%, #002366 100%);
+  z-index: 1;
+  transform: translateX(-50%);
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 35, 102, 0.2);
+}
+
+.dark .timeline-line-modern {
+  background: linear-gradient(to bottom, #1f305e 0%, #b9d9eb 100%);
+  box-shadow: 0 0 10px rgba(185, 217, 235, 0.2);
+}
+
+/* Enhanced timeline dot animation */
+.timeline-dot-modern {
+  position: absolute;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  background: #060f20;
+  border: 3px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.3s ease;
+  transform: translateY(-50%);
+  box-shadow: 0 0 0 4px rgba(226, 232, 240, 0.5);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 35, 102, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 35, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 35, 102, 0);
+  }
+}
+
+.dark .timeline-dot-modern {
+  animation: pulse-dot-dark 2s infinite;
+}
+
+@keyframes pulse-dot-dark {
+  0% {
+    box-shadow: 0 0 0 0 rgba(185, 217, 235, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(185, 217, 235, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(185, 217, 235, 0);
+  }
+}
+
+/* Enhanced content slate animations */
+.responsibility-card {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  border-left: 3px solid transparent;
+}
+
+.responsibility-card:hover {
+  border-left-color: #002366;
+  padding-left: 10px;
+}
+
+.dark .responsibility-card:hover {
+  border-left-color: #b9d9eb;
+}
+
+/* Enhanced tech pill animations */
+.tech-pill {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-pill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.tech-pill:hover::after {
+  left: 100%;
+}
+
+/* Enhanced timeline card animations */
+.timeline-card-modern {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  border-left: 3px solid transparent;
+}
+
+.timeline-card-modern:hover {
+  transform: translateX(5px);
+}
+
+.timeline-item-modern.right .timeline-card-modern:hover {
+  transform: translateX(-5px);
+}
+
+.active-card {
+  border-left-color: #002366;
+  box-shadow: 0 6px 16px rgba(0, 35, 102, 0.15);
+}
+
+.dark .active-card {
+  border-left-color: #b9d9eb;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 0.8s step-end infinite;
+}
+
+/* 3D tilt effect for elements */
+.tilt-effect {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.tilt-effect:hover {
+  transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+}
+
+/* Gradient background animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Grid patterns for background */
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, rgba(0, 35, 102, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 35, 102, 0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.bg-grid-pattern-dark {
+  background-image: linear-gradient(to right, rgba(185, 217, 235, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(185, 217, 235, 0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
 }

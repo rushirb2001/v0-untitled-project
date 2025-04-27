@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react"
 import Image from "next/image"
 import { useTheme } from "next-themes"
 import { motion, AnimatePresence } from "framer-motion"
-import { GraduationCap, BookOpen, ChevronUp, ChevronDown } from "lucide-react"
+import { GraduationCap, BookOpen, ChevronUp, ChevronDown, Calendar, MapPin } from "lucide-react"
 
 interface Education {
   university: string
@@ -17,18 +17,20 @@ interface Education {
 
 export default function EducationSection() {
   const [isVisible, setIsVisible] = useState(false)
-  const [isScrollingDown, setIsScrollingDown] = useState(true)
+  const [isExiting, setIsExiting] = useState(false)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [expandedCard, setExpandedCard] = useState<number | null>(null)
-  const sectionRef = useRef(null)
+  const sectionRef = useRef<HTMLElement>(null)
+  const timelineRef = useRef(null)
   const { resolvedTheme } = useTheme()
+  const exitTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const educationData: Education[] = [
     {
       university: "Arizona State University",
-      degree: "Master's, Data Science, Analytics and Engineering",
+      degree: "MS, Data Science",
       period: "Aug 2023 - Jun 2025",
       location: "Arizona, USA",
       logo: "/logos/asu.png",
@@ -36,7 +38,7 @@ export default function EducationSection() {
     },
     {
       university: "Institute of Technology, Nirma University",
-      degree: "Bachelor's, Computer Science",
+      degree: "B.Tech, Computer Science",
       period: "Jul 2019 - Jun 2023",
       location: "Ahmedabad, GJ, India",
       logo: "/logos/nu.png",
@@ -53,34 +55,6 @@ export default function EducationSection() {
     checkMobile()
     window.addEventListener("resize", checkMobile)
     return () => window.removeEventListener("resize", checkMobile)
-  }, [])
-
-  // Track scroll direction
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      setIsScrollingDown(currentScrollY > lastScrollY)
-      setLastScrollY(currentScrollY)
-    }
-
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [lastScrollY])
-
-  // Use Intersection Observer to detect when section enters and exits viewport
-  useEffect(() => {
-    if (!sectionRef.current) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries
-        setIsVisible(entry.isIntersecting)
-      },
-      { threshold: 0.2 }, // Trigger when 20% of the section is visible
-    )
-
-    observer.observe(sectionRef.current)
-    return () => observer.disconnect()
   }, [])
 
   // Set active index to the most recent education (first in the array) on mobile
@@ -104,56 +78,78 @@ export default function EducationSection() {
     setExpandedCard(expandedCard === idx ? null : idx)
   }
 
-  // First, let's enhance the scroll animation when clicking the education link in navbar
-  // Add this function after the toggleExpand function
-  // Add this function after the toggleExpand function
-
-  const scrollToEducation = () => {
-    // Add entrance animation class when scrolled to via navbar
-    setIsVisible(true)
-
-    // Add a small delay to ensure animations trigger after scrolling completes
-    setTimeout(() => {
-      if (sectionRef.current) {
-        sectionRef.current.classList.add("section-entered")
-      }
-    }, 300)
-  }
-
-  // Update the useEffect that handles scroll direction to also handle navbar clicks
+  // Improved intersection observer for section visibility
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      setIsScrollingDown(currentScrollY > lastScrollY)
-      setLastScrollY(currentScrollY)
+    if (!sectionRef.current) return
 
-      // Check if we're scrolling to this section
-      const sectionTop = sectionRef.current?.offsetTop || 0
-      const sectionHeight = sectionRef.current?.offsetHeight || 0
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries
 
-      if (currentScrollY >= sectionTop - 100 && currentScrollY <= sectionTop + sectionHeight) {
-        if (!isVisible) {
+        // When section enters viewport
+        if (entry.isIntersecting) {
+          // Clear any pending exit animations
+          if (exitTimeoutRef.current) {
+            clearTimeout(exitTimeoutRef.current)
+            exitTimeoutRef.current = null
+          }
+
           setIsVisible(true)
+          setIsExiting(false)
+
+          // Add entrance animation classes
           if (sectionRef.current) {
             sectionRef.current.classList.add("section-entered")
+            sectionRef.current.classList.remove("section-exited")
+            sectionRef.current.classList.remove("exiting-right")
           }
         }
-      } else {
-        if (isVisible) {
-          setIsVisible(false)
+        // When section exits viewport
+        else if (!entry.isIntersecting && isVisible) {
+          setIsExiting(true)
+
+          // Add exit animation classes
           if (sectionRef.current) {
+            sectionRef.current.classList.add("section-exited")
+            sectionRef.current.classList.add("exiting-right") // Education exits to the right
             sectionRef.current.classList.remove("section-entered")
           }
+
+          // Set a timeout to clean up after animation completes
+          exitTimeoutRef.current = setTimeout(() => {
+            setIsVisible(false)
+            setIsExiting(false)
+            if (sectionRef.current) {
+              sectionRef.current.classList.remove("section-exited")
+              sectionRef.current.classList.remove("exiting-right")
+            }
+          }, 800)
         }
+      },
+      { threshold: 0.1 }, // Trigger when 10% of the section is visible/invisible
+    )
+
+    observer.observe(sectionRef.current)
+
+    return () => {
+      observer.disconnect()
+      if (exitTimeoutRef.current) {
+        clearTimeout(exitTimeoutRef.current)
       }
     }
+  }, [isVisible])
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
-
-    // Listen for hash changes to trigger animations when clicking navbar links
+  // Handle direct navigation to section
+  useEffect(() => {
     const handleHashChange = () => {
       if (window.location.hash === "#education") {
-        scrollToEducation()
+        setIsVisible(true)
+        setIsExiting(false)
+        if (sectionRef.current) {
+          sectionRef.current.classList.add("section-entered")
+          sectionRef.current.classList.remove("section-exited")
+          sectionRef.current.classList.remove("exiting-right")
+        }
       }
     }
 
@@ -161,14 +157,13 @@ export default function EducationSection() {
 
     // Check if we're loading directly to the education section
     if (window.location.hash === "#education") {
-      scrollToEducation()
+      handleHashChange()
     }
 
     return () => {
-      window.removeEventListener("scroll", handleScroll)
       window.removeEventListener("hashchange", handleHashChange)
     }
-  }, [lastScrollY, isVisible])
+  }, [])
 
   return (
     <section
@@ -178,38 +173,143 @@ export default function EducationSection() {
         isMobile ? "h-[100vh]" : "min-h-screen"
       } flex flex-col items-center justify-center bg-white dark:bg-navy-dark relative overflow-hidden`}
     >
+      {/* Minimal background accent */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#002366] to-[#B9D9EB]"></div>
+      {/* Enhanced Background Elements */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+        {/* Main gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/30 to-white dark:from-navy-dark dark:via-delft-blue/20 dark:to-navy-dark opacity-70"></div>
+
+        {/* Animated mesh grid pattern */}
+        <div className="absolute inset-0 opacity-25 dark:opacity-25">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                resolvedTheme === "dark"
+                  ? `linear-gradient(to right, rgba(185, 217, 235, 0.2) 1px, transparent 1px), 
+                 linear-gradient(to bottom, rgba(185, 217, 235, 0.2) 1px, transparent 1px)`
+                  : `linear-gradient(to right, rgba(0, 35, 102, 0.2) 1px, transparent 1px), 
+                 linear-gradient(to bottom, rgba(0, 35, 102, 0.2) 1px, transparent 1px)`,
+              backgroundSize: "40px 40px",
+            }}
+          ></div>
+        </div>
+
+        {/* Decorative circles */}
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-royal-blue/5 dark:bg-columbia-blue/5 blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 rounded-full bg-royal-blue/5 dark:bg-columbia-blue/5 blur-3xl"></div>
+
+        {/* Floating elements */}
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full bg-royal-blue/5 dark:bg-columbia-blue/5"
+            style={{
+              width: `${Math.random() * 8 + 3}rem`,
+              height: `${Math.random() * 8 + 3}rem`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animation: `float ${Math.random() * 10 + 20}s linear infinite`,
+              animationDelay: `${Math.random() * 5}s`,
+              opacity: Math.random() * 0.3 + 0.1,
+              filter: `blur(${Math.random() * 30 + 20}px)`,
+            }}
+          ></div>
+        ))}
+
+        {/* Academic-themed decorative elements */}
+        <div className="absolute top-20 left-20 opacity-5 dark:opacity-8">
+          <svg
+            width="120"
+            height="120"
+            viewBox="0 0 24 24"
+            fill="none"
+            className="text-royal-blue dark:text-columbia-blue"
+          >
+            <path
+              d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"
+              stroke="currentColor"
+              strokeWidth="0.7"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        <div className="absolute bottom-20 right-20 opacity-5 dark:opacity-8">
+          <svg
+            width="140"
+            height="140"
+            viewBox="0 0 24 24"
+            fill="none"
+            className="text-royal-blue dark:text-columbia-blue"
+          >
+            <path
+              d="M2 10l10-5 10 5-10 5z"
+              stroke="currentColor"
+              strokeWidth="0.7"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"
+              stroke="currentColor"
+              strokeWidth="0.7"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path d="M22 10v6" stroke="currentColor" strokeWidth="0.7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+
+        {/* Subtle flowing lines */}
+        <div className="absolute inset-0 overflow-hidden opacity-20 dark:opacity-10">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute h-px w-full"
+              style={{
+                top: `${20 + i * 30}%`,
+                background:
+                  resolvedTheme === "dark"
+                    ? "linear-gradient(90deg, transparent, rgba(185, 217, 235, 0.3) 50%, transparent)"
+                    : "linear-gradient(90deg, transparent, rgba(0, 35, 102, 0.3) 50%, transparent)",
+                opacity: isVisible ? 1 : 0,
+                transform: `translateX(${isVisible ? "0" : "-100%"})`,
+                transition: `transform 1.5s ease-out ${i * 0.2}s, opacity 1s ease-in-out ${i * 0.2}s`,
+              }}
+            ></div>
+          ))}
+        </div>
+      </div>
+
       {/* Desktop Timeline */}
       {!isMobile && (
         <>
-          <h2 className="text-3xl font-bold text-center mb-8 text-navy-blue dark:text-white animate-fadeIn pt-20">
+          <h2 className="text-3xl font-bold text-center mb-8 text-navy-blue dark:text-white animate-fadeIn pt-5 relative z-10">
             Education
           </h2>
-          <div className="education-timeline relative w-full max-w-4xl mx-auto px-4 md:px-0">
-            {/* Timeline line */}
-            <div className="education-timeline-line" />
+          <div className="education-timeline relative w-full max-w-4xl mx-auto px-4 md:px-0 z-10">
+            {/* Enhanced Timeline Line with Experience-style Flowing Light */}
+            <div className="education-timeline-line" ref={timelineRef}>
+              {/* Timeline Line Glow Animation - Similar to Experience Section */}
+              <div className="timeline-line-glow"></div>
+            </div>
 
             {educationData.map((edu, idx) => {
               const isRight = idx % 2 === 1
               const match = edu.period.match(/([A-Za-z]+ \d{4})/)
               const periodLabel = match ? match[1] : edu.period
 
-              // Determine animation class based on visibility and scroll direction
-              let animationClass = "opacity-0"
+              // Determine animation class based on visibility and section state
+              let animationClass = ""
 
-              if (isVisible) {
-                // When scrolling into view
-                if (isScrollingDown) {
-                  animationClass = isRight ? "animate-slide-up" : "animate-slide-down"
-                } else {
-                  // When scrolling back up into view
-                  animationClass = isRight ? "animate-slide-up" : "animate-slide-down"
-                }
-              } else if (!isVisible && !isScrollingDown) {
-                // When scrolling away (up) from the section
-                animationClass = isRight ? "animate-slide-down-reverse" : "animate-slide-up-reverse"
-              } else if (!isVisible && isScrollingDown) {
-                // When scrolling away (down) from the section
-                animationClass = isRight ? "animate-slide-down-reverse" : "animate-slide-up-reverse"
+              if (isVisible && !isExiting) {
+                animationClass = isRight ? "animate-slide-in-right" : "animate-slide-in-left"
+              } else if (isExiting) {
+                animationClass = "animate-slide-out-right" // Education always exits to the right
+              } else {
+                animationClass = "opacity-0"
               }
 
               return (
@@ -218,23 +318,32 @@ export default function EducationSection() {
                   className={`education-event${isRight ? " right" : ""} ${animationClass}`}
                   style={{
                     animationDelay: `${idx * 0.3}s`,
+                    top: `${idx * 33 + 5}%`, // Ensure proper vertical positioning
                   }}
                 >
-                  <div className="education-dot" />
+                  {/* Enhanced Education Dot with Glow Effect */}
+                  <div className="education-dot-container">
+                    <div className="education-dot-glow"></div>
+                    <div className="education-dot">
+                      <GraduationCap className="h-3 w-3 text-royal-blue dark:text-columbia-blue" />
+                    </div>
+                  </div>
+
                   <div className="education-date">{periodLabel}</div>
 
-                  {/* Flip card with hopping animation */}
+                  {/* Enhanced Flip Card with Improved Animation */}
                   <div className="flip-card group w-full animate-hop">
                     <div className="flip-card-inner">
                       {/* Front */}
-                      <div className="flip-card-front bg-white dark:bg-navy-blue/30 rounded-xl shadow-lg px-8 py-6 flex flex-col md:flex-row items-center gap-6 h-full">
-                        <div className="w-20 h-20 relative shrink-0 bg-white dark:bg-navy-blue/20 rounded-full p-2 flex items-center justify-center">
+                      <div className="flip-card-front bg-white dark:bg-navy-blue/90 rounded-xl shadow-lg px-8 py-6 flex flex-col md:flex-row items-center gap-6 h-full border border-royal-blue/10 dark:border-columbia-blue/20">
+                        <div className="w-20 h-20 relative shrink-0 bg-white dark:bg-navy-blue/20 rounded-full p-2 flex items-center justify-center shadow-inner">
                           <Image
                             src={edu.logo || "/placeholder.svg"}
                             alt={`${edu.university} logo`}
                             fill
                             className="object-contain p-1"
                           />
+                          <div className="absolute inset-0 rounded-full education-logo-glow"></div>
                         </div>
                         <div className="flex-1 text-center md:text-left">
                           <h3 className="text-xl md:text-2xl font-bold text-navy-blue dark:text-white mb-1">
@@ -247,16 +356,27 @@ export default function EducationSection() {
                       </div>
 
                       {/* Back */}
-                      <div className="flip-card-back bg-blue-50 dark:bg-blue-900 rounded-xl shadow-lg px-8 py-6 flex flex-col items-center justify-center h-full">
-                        <h4 className="text-blue-700 dark:text-blue-300 text-lg font-semibold mb-4">Key Coursework</h4>
+                      <div className="flip-card-back bg-blue-50 dark:bg-blue-900/80 rounded-xl shadow-lg px-8 py-6 flex flex-col items-center justify-center h-full border border-royal-blue/20 dark:border-columbia-blue/30">
+                        <h4 className="text-blue-700 dark:text-blue-300 text-lg font-semibold mb-4 flex items-center">
+                          <BookOpen className="h-4 w-4 mr-2" />
+                          Key Coursework
+                        </h4>
                         <div className="flex flex-wrap justify-center gap-3 w-full">
                           {edu.coursework.map((course, idx) => (
-                            <span
+                            <motion.span
                               key={idx}
                               className="bubble px-4 py-2 rounded-full bg-blue-200 dark:bg-blue-700 text-blue-900 dark:text-white text-xs font-medium shadow transition"
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: idx * 0.1 }}
+                              whileHover={{
+                                scale: 1.05,
+                                backgroundColor:
+                                  resolvedTheme === "dark" ? "rgba(37, 99, 235, 0.7)" : "rgba(219, 234, 254, 0.9)",
+                              }}
                             >
                               {course}
-                            </span>
+                            </motion.span>
                           ))}
                         </div>
                       </div>
@@ -269,178 +389,109 @@ export default function EducationSection() {
         </>
       )}
 
-      {/* Enhanced Mobile Timeline */}
+      {/* Minimal Mobile Timeline */}
       {isMobile && (
-        <div className="flex flex-col h-full w-full px-8 pt-4 pb-8">
+        <div className="min-h-screen flex flex-col justify-center pb-30 px-4 relative overflow-hidden">
           <h2 className="text-2xl font-bold text-center mb-8 text-navy-blue dark:text-white">Education</h2>
 
-          {/* Subtle background pattern */}
-          <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none">
-            <div className="absolute inset-0 bg-royal-blue/10 dark:bg-columbia-blue/10"></div>
-          </div>
+          {/* Minimal Timeline */}
+          <div className="relative w-full max-w-md mx-auto">
+            {/* Simple vertical line */}
+            <div className="absolute left-0 top-2 bottom-0 w-[2px] bg-gradient-to-b from-royal-blue/80 to-columbia-blue/80 dark:from-columbia-blue/80 dark:to-royal-blue/80"></div>
 
-          <div className="relative flex-1 flex flex-col items-center justify-center">
-            {/* Wavy Timeline SVG - Now with better z-index control */}
-            <div className="timeline-container absolute h-full w-full left-0 top-0 z-0 flex justify-center pointer-events-none">
-              <svg className="h-full timeline-svg" width="20" viewBox="0 0 20 100" preserveAspectRatio="none">
-                <path
-                  d="M10,0 Q15,25 5,50 Q-5,75 10,100"
-                  className="wavy-timeline"
-                  stroke="url(#timeline-gradient)"
-                  strokeWidth="3"
-                  fill="none"
-                />
-                <defs>
-                  <linearGradient id="timeline-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#002366" />
-                    <stop offset="50%" stopColor="#1f305e" />
-                    <stop offset="100%" stopColor="#002366" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
+            {/* Education Items */}
+            <div className="space-y-8">
+              {educationData.map((edu, idx) => (
+                <motion.div
+                  key={edu.university}
+                  className="relative pl-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: idx * 0.2 }}
+                >
+                  {/* Timeline dot */}
+                  <div className="absolute left-[-4px] top-1 w-[10px] h-[10px] rounded-full bg-royal-blue dark:bg-columbia-blue"></div>
 
-            {/* Education Items - Fixed height container */}
-            <div className="w-full max-h-[calc(100vh-200px)] overflow-y-auto pr-2 flex flex-col items-center">
-              {educationData.map((edu, idx) => {
-                const isLeft = idx % 2 === 0
-                const alignmentClasses = isLeft ? "pr-14 items-end text-right" : "pl-14 items-start text-left"
-                const isExpanded = expandedCard === idx
-
-                return (
+                  {/* Education card */}
                   <motion.div
-                    key={edu.university}
-                    className={`relative w-full mb-8 flex ${alignmentClasses}`}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: idx * 0.2 }}
+                    className="bg-white dark:bg-navy-blue/90 rounded-lg shadow-sm p-4 border border-gray-100 dark:border-gray-800"
+                    whileHover={{ y: -2, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    onClick={() => toggleExpand(idx)}
                   >
-                    {/* Timeline Dot with Icon - Repositioned to avoid overlap */}
-                    <div
-                      className="absolute left-1/2 transform -translate-x-1/2 z-30 education-icon-container"
-                      style={{
-                        top: "0",
-                        // Offset the icon position to follow the wavy line
-                        marginLeft: isLeft ? "-5px" : "5px",
-                      }}
-                    >
-                      <motion.div
-                        className="w-6 h-6 rounded-full bg-white dark:bg-navy-dark border-2 border-royal-blue dark:border-columbia-blue flex items-center justify-center"
-                        whileHover={{ scale: 1.2 }}
-                        animate={{
-                          y: [0, -3, 0],
-                          boxShadow: [
-                            "0 0 0 rgba(0, 35, 102, 0.4)",
-                            "0 0 8px rgba(0, 35, 102, 0.6)",
-                            "0 0 0 rgba(0, 35, 102, 0.4)",
-                          ],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Number.POSITIVE_INFINITY,
-                          repeatType: "reverse",
-                          delay: idx * 0.5,
-                        }}
-                      >
-                        <GraduationCap className="h-3 w-3 text-royal-blue dark:text-columbia-blue" />
-                      </motion.div>
+                    {/* Logo and basic info */}
+                    <div className="flex items-start mb-3">
+                      <div className="w-10 h-10 relative rounded-md overflow-hidden mr-3 flex-shrink-0 border border-gray-100 dark:border-gray-700">
+                        <Image
+                          src={edu.logo || "/placeholder.svg"}
+                          alt={`${edu.university} logo`}
+                          fill
+                          className="object-contain p-1"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-navy-blue dark:text-white text-base leading-tight">
+                          {edu.university}
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-300 text-sm">{edu.degree}</p>
+                      </div>
                     </div>
 
-                    {/* Connector Line */}
-                    <div
-                      className={`absolute h-8 w-[2px] z-20 ${isLeft ? "left-[calc(50%-1px)]" : "left-[calc(50%-1px)]"}`}
-                      style={{
-                        top: "6px", // Start from the bottom of the icon
-                        height: "14px", // Length of connector line
-                        background: "linear-gradient(to bottom, #002366, #1f305e)",
-                      }}
-                    />
-
-                    {/* Content Card - Moved down to avoid overlap and improved for dark mode */}
-                    <motion.div
-                      className={`w-full max-w-[85%] bg-white dark:bg-navy-blue rounded-lg shadow-lg p-4 mt-5 ${
-                        isLeft ? "rounded-tr-none" : "rounded-tl-none"
-                      } border border-gray-100 dark:border-blue-900/50 relative overflow-hidden z-10 education-card`}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => toggleExpand(idx)}
-                      layout
-                      whileHover={{
-                        boxShadow: "0 8px 20px rgba(0, 0, 0, 0.1)",
-                        y: -2,
-                      }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    >
-                      {/* Decorative accent */}
-                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-royal-blue to-delft-blue"></div>
-
-                      {/* Degree and University */}
-                      <div className={`mb-1 ${isLeft ? "text-right" : "text-left"}`}>
-                        <h3 className="font-bold text-lg text-navy-blue dark:text-white leading-tight">{edu.degree}</h3>
-                        <p className="text-blue-600 dark:text-blue-300 text-sm font-medium">{edu.university}</p>
+                    {/* Period and location */}
+                    <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-3 space-x-4">
+                      <div className="flex items-center">
+                        <Calendar className="h-3 w-3 mr-1" />
+                        <span>{edu.period}</span>
                       </div>
-
-                      {/* Period and Location */}
-                      <div className={`mb-3 ${isLeft ? "text-right" : "text-left"}`}>
-                        <p className="text-gray-600 dark:text-gray-200 text-xs">{edu.period}</p>
-                        <p className="text-gray-500 dark:text-gray-300 text-xs">{edu.location}</p>
+                      <div className="flex items-center">
+                        <MapPin className="h-3 w-3 mr-1" />
+                        <span>{edu.location}</span>
                       </div>
+                    </div>
 
-                      {/* Coursework Pills */}
-                      <AnimatePresence>
-                        {isExpanded && (
-                          <motion.div
-                            className={`flex flex-wrap gap-1.5 ${isLeft ? "justify-end" : "justify-start"}`}
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <div className="w-full mb-1">
-                              <div
-                                className={`flex items-center text-xs text-blue-700 dark:text-blue-200 mb-1 ${
-                                  isLeft ? "justify-end" : "justify-start"
-                                }`}
-                              >
-                                <BookOpen className="h-3 w-3 mr-1" />
-                                <span>Key Coursework:</span>
-                              </div>
-                            </div>
+                    {/* Coursework */}
+                    <AnimatePresence>
+                      {expandedCard === idx && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="mt-2"
+                        >
+                          <div className="flex items-center text-xs text-blue-600 dark:text-blue-400 mb-2">
+                            <BookOpen className="h-3 w-3 mr-1" />
+                            <span>Key Coursework</span>
+                          </div>
+                          <div className="flex flex-wrap gap-1.5">
                             {edu.coursework.map((course, i) => (
-                              <motion.span
+                              <span
                                 key={i}
-                                className="text-xs px-2 py-1 bg-blue-100 dark:bg-navy-blue/60 text-royal-blue dark:text-columbia-blue rounded-full shadow-sm"
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: i * 0.1 }}
-                                whileHover={{
-                                  scale: 1.05,
-                                  backgroundColor:
-                                    resolvedTheme === "dark" ? "rgba(31, 48, 94, 0.6)" : "rgba(198, 226, 233, 1)",
-                                }}
+                                className="text-xs px-2 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md"
                               >
                                 {course}
-                              </motion.span>
+                              </span>
                             ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
-                      {/* Toggle indicator with animation */}
-                      <motion.div
-                        className={`mt-2 flex items-center text-xs text-royal-blue dark:text-columbia-blue ${
-                          isLeft ? "justify-end" : "justify-start"
-                        }`}
+                    {/* Toggle indicator */}
+                    <div className="mt-2 flex justify-center">
+                      <motion.button
+                        className="text-xs text-blue-600 dark:text-blue-400 flex items-center"
                         whileHover={{ scale: 1.05 }}
-                        animate={{ y: isExpanded ? 0 : [0, 3, 0] }}
+                        animate={{ y: expandedCard === idx ? 0 : [0, 2, 0] }}
                         transition={{
                           y: {
                             duration: 1.5,
-                            repeat: isExpanded ? 0 : Number.POSITIVE_INFINITY,
+                            repeat: expandedCard === idx ? 0 : Number.POSITIVE_INFINITY,
                             repeatType: "reverse",
                           },
                         }}
                       >
-                        {isExpanded ? (
+                        {expandedCard === idx ? (
                           <>
                             <ChevronUp className="h-3 w-3 mr-1" />
                             <span>Hide coursework</span>
@@ -451,23 +502,13 @@ export default function EducationSection() {
                             <span>Show coursework</span>
                           </>
                         )}
-                      </motion.div>
-                    </motion.div>
+                      </motion.button>
+                    </div>
                   </motion.div>
-                )
-              })}
+                </motion.div>
+              ))}
             </div>
           </div>
-
-          {/* Subtle instruction text with animation */}
-          <motion.div
-            className="text-center mt-4 text-xs text-gray-500 dark:text-gray-400"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-          >
-            Tap cards to see coursework
-          </motion.div>
         </div>
       )}
     </section>
